@@ -146,12 +146,29 @@ function randomColor(colors) {
     return colors[Math.floor(Math.random() * colors.length)];
 }
 
+var ballArray = [];
 // Objects
 function Circle(x, y, radius, color) {
+    var _this = this;
+
     this.x = x;
     this.y = y;
     this.radius = radius;
     this.color = color;
+
+    this.update = function () {
+        _this.draw();
+
+        for (var i = 0; i < ballArray.length; i++) {
+            var distanceBetweenTwoObjects = getDistance(_this.x, _this.y, ballArray[i].x, ballArray[i].y) - _this.radius * 2;
+            if (distanceBetweenTwoObjects < 0) {
+                if (distanceBetweenTwoObjects !== 0 && distanceBetweenTwoObjects !== -(_this.radius * 2)) ballArray[i].color = "pink";
+                // } else {
+                //     if (!isNaN(distanceBetweenTwoObjects))
+                // console.log(distanceBetweenTwoObjects)
+            }
+        }
+    };
 
     this.draw = function () {
         c.beginPath();
@@ -160,16 +177,11 @@ function Circle(x, y, radius, color) {
         c.stroke();
         c.closePath();
     };
-
-    this.update = function () {
-        this.draw();
-    };
-}
+};
 
 // Implementation
 // let circle1;
 var circle2 = void 0;
-var ballArray = [];
 
 function init() {
     // circle1 = new Circle(300, 300, 100, 'black');
@@ -177,7 +189,7 @@ function init() {
 
     // objects = []
 
-    for (var i = 0; i < 50; i++) {
+    for (var i = 0; i < 20; i++) {
         var x = randomIntFromRange(radius, innerWidth - radius - 2);
         var y = randomIntFromRange(radius, innerHeight - radius);
         var radius = 20;
@@ -212,7 +224,7 @@ function animate() {
 
 
     ballArray.forEach(function (ball) {
-        ball.update();
+        ball.update(ballArray);
         // console.log((getDistance(circle2.x, circle2.y, ball.x, ball.y)))
     });
 }
