@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color:#00d4ff;
+    user-select: none;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 3%;
+}
+
+header h1 {
+    color: white;
+    font-family: modak;
+    font-size: 5em;
+    display: flex;
+    justify-content: center;
+    padding: 0 0 5% 0;
+    font-weight: 400;
+    margin: 0;
+}
+
+
+.n {
+    color: black;
+}
+
+.circle {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    margin-top: 2.5%;
+    height: 50px;
+    width: 50px;
+    background-color:yellow;
+    border-radius: 50%;
+  }
+
+div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: .5em;
+}
+
+#inputName {
+    font-size: 3rem;
+    border-style: none;
+    user-select: none;
+    background-color: white;
+    border-radius: 25px;
+    color: black;
+    padding: 0 20px;
+}
+
+#inputContainer {
+    user-select:none;
+}
+
+button{
+    font-style: normal;
+    text-decoration: none;
+    color: white;
+    width: 10rem;
+    font-size: 1.5rem;
+    background-color: yellow;
+    border: none;
+    border-radius: 25px;
+    padding: 8%;
+    white-space: nowrap;
+    box-shadow: gray 5px 5px;
+}
+
+button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: .3s linear;
+}
+
+button.premium {
+    background-color: red;
+    width: 11rem;
+}
+
+button.premium:hover {
+    background-color: red;
+    transform: scale(1.3);
+    transition: .4s linear;
+}
+
+/* Header */
+/* /////////////////////////////////////////// */
+
+.nLetter {
+    transition: height 2s, width 2s, transform 2s;
+    transition-property: font-size;
+}
+
+.is-rotating {
+    animation: 1s linear 0s infinite rotateBox
+    , 3s linear 0s alternate infinite changeBackground;
+}
+
+.is-moving {
+    animation: .5s linear 0s infinite increaseBox;
+}
+
+@keyframes increaseBox {
+    0% {
+      transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(1.5, 1.5);
+    }
+    100% {
+      transform: translate(1, 1);
+    }
+
+  }
+  
+  @keyframes rotateBox {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-25deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    75% {
+        transform: rotate(25deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+  }
