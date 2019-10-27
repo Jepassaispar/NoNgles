@@ -156,8 +156,8 @@ function Circle(x, y, radius, color) {
     this.draw = function () {
         c.beginPath();
         c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        c.fillStyle = this.color;
-        c.fill();
+        c.strokeStyle = this.color;
+        c.stroke();
         c.closePath();
     };
 
@@ -167,7 +167,7 @@ function Circle(x, y, radius, color) {
 }
 
 // Implementation
-var circle1 = void 0;
+// let circle1;
 var circle2 = void 0;
 var ballArray = [];
 
@@ -177,11 +177,22 @@ function init() {
 
     // objects = []
 
-    for (var i = 0; i < 10; i++) {
-        var radius = randomIntFromRange(1, 15);
-        var x = randomIntFromRange(radius, canvas.width - radius - 1);
-        var y = randomIntFromRange(radius, canvas.height - radius);
+    for (var i = 0; i < 50; i++) {
+        var x = randomIntFromRange(radius, innerWidth - radius - 2);
+        var y = randomIntFromRange(radius, innerHeight - radius);
+        var radius = 20;
         var color = randomColor(colors);
+
+        if (i !== 0) {
+            for (var j = 0; j < ballArray.length; j++) {
+                if (getDistance(x, y, ballArray[j].x, ballArray[j].y) - radius * 2 < 0) {
+                    x = randomIntFromRange(radius, innerWidth - radius - 2);
+                    y = randomIntFromRange(radius, innerHeight - radius);
+                    j = -1;
+                }
+            }
+        }
+
         ballArray.push(new Circle(x, y, radius, color));
     }
     console.log(ballArray);
@@ -192,11 +203,6 @@ function animate() {
     requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height);
 
-    for (var i = 0; i < ballArray.length; i++) {
-        ballArray[i].update();
-        // console.log((getDistance(circle2.x, circle2.y, ballArray[i].x, ballArray[i].y)))
-    }
-
     // circle1.update();
     circle2.update();
     circle2.x = mouse.x;
@@ -205,9 +211,10 @@ function animate() {
     // getDistance(circle1.x, circle1.y, circle2.x, circle2.y)
 
 
-    // objects.forEach(object => {
-    //  object.update()
-    // })
+    ballArray.forEach(function (ball) {
+        ball.update();
+        // console.log((getDistance(circle2.x, circle2.y, ball.x, ball.y)))
+    });
 }
 
 init();
