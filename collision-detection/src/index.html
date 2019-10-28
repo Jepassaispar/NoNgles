@@ -3,20 +3,56 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Canvas Boilerplate | Chris Courses</title>
+  <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
+  <title>LvL NaNgles</title>
+  <link rel="stylesheet" href="./style.css" type="text/css">
   <style>
     body {
       margin: 0;
+      padding: 0;
+    }
+
+    header {
+      display: flex;
+      justify-content: flex-end;
+      margin: 0;
+      padding: 0;
+      background-color: lightblue;
+      border-bottom: 1px solid gray;
+      box-shadow: 1px 1px lightgray;
+    }
+
+    footer {
+      display: flex;
+      justify-content: flex-end;
+      margin: 0;
+      padding: 0;
+      background-color: lightblue;
+      border-top: 1px solid gray;
+      box-shadow: 1px 1px lightgray;
+    }
+
+    h6 {
+      margin: 0;
+      padding: 0 1em;
+      font-family: Staatliches;
     }
 
     canvas {
-      background-color: pink;
+      height: 95vh;
+      width: 100vw;
     }
   </style>
 </head>
 
 <body>
+  <header>
+    <h6>SCORE : <span>0000000000</span></h6>
+  </header>
   <canvas></canvas>
+  <footer>
+    <h6>made with <3 by PH</h6>
+  </footer>
 </body>
 
 </html>

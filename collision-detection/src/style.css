@@ -1,7 +1,11 @@
 body {
-    margin:0;
+  margin: 0;
+}
+
+h6 {
+  color: red;
 }
 
 canvas {
-    background-color: pink;
+  background-color: pink;
 }

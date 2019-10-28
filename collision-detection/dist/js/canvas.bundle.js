@@ -102,6 +102,10 @@ var _utils2 = _interopRequireDefault(_utils);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// JS
+var scoreDisplay = document.querySelector("span");
+var totalScore = 0;
+
 // import { NONAME } from 'dns'
 
 var canvas = document.querySelector('canvas');
@@ -154,8 +158,8 @@ function Circle(x, y, radius, color) {
     this.x = x;
     this.y = y;
     this.velocity = {
-        x: randomIntFromRange(-2, 2),
-        y: randomIntFromRange(-2, 2)
+        x: randomIntFromRange(-5, 5),
+        y: randomIntFromRange(-5, 5)
     };
     this.radius = radius;
     this.color = color;
@@ -168,13 +172,16 @@ function Circle(x, y, radius, color) {
             var radius = 30;
 
             var color = randomColor(colors);
-            var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, ballArray[i].x, ballArray[i].y) - _this.radius * 2;
+            var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, ballArray[i].x, ballArray[i].y) - (_this.radius + circle2.radius);
 
             if (distanceBetweenTwoObjects < 0) {
                 if (distanceBetweenTwoObjects !== 0 && distanceBetweenTwoObjects !== -(_this.radius * 2)) ballArray.splice(i, 1);
+                totalScore += 100;
+                console.log(totalScore);
+                scoreDisplay.textContent = totalScore;
                 if (circle2.radius <= 300)
                     // HOW FAST THE MOUSE CIRCLE IS INCREASING
-                    circle2.radius += .1;
+                    circle2.radius += 1;
             }
             if (_this.x + _this.radius <= 0 || _this.x - _this.radius >= innerWidth || _this.y + _this.radius <= 0 || _this.y - _this.radius >= innerHeight) {
                 ballArray.splice(ballArray.indexOf(_this), 1);
@@ -198,7 +205,6 @@ function Circle(x, y, radius, color) {
                 }
             }
         }
-        console.log(ballArray.length);
     };
 
     this.drawStroke = function () {
@@ -271,8 +277,6 @@ function animate() {
 
 init();
 animate();
-
-// PH's Function
 
 /***/ }),
 

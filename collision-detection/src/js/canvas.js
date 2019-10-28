@@ -1,3 +1,9 @@
+// JS
+var scoreDisplay = document.querySelector("span");
+var totalScore = 0;
+
+
+
 import utils from './utils'
 // import { NONAME } from 'dns'
 
@@ -50,8 +56,8 @@ function Circle(x, y, radius, color) {
     this.x = x
     this.y = y
     this.velocity = {
-        x: randomIntFromRange(-2,2),
-        y: randomIntFromRange(-2,2)
+        x: randomIntFromRange(-5,5),
+        y: randomIntFromRange(-5,5)
     }
     this.radius = radius
     this.color = color
@@ -64,14 +70,17 @@ function Circle(x, y, radius, color) {
             var radius = 30;
 
             var color = randomColor(colors);
-            var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, ballArray[i].x, ballArray[i].y) - this.radius * 2;
+            var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, ballArray[i].x, ballArray[i].y) - (this.radius + circle2.radius);
 
             if (distanceBetweenTwoObjects < 0) {
                 if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(this.radius * 2)))
                     ballArray.splice(i, 1);
+                    totalScore += 100;
+                    console.log(totalScore)
+                    scoreDisplay.textContent = totalScore;                    
                     if (circle2.radius <= 300) 
         // HOW FAST THE MOUSE CIRCLE IS INCREASING
-                    circle2.radius+=.1;
+                    circle2.radius+=1;
                 }
             if (this.x + this.radius <= 0 || this.x - this.radius >= innerWidth || this.y + this.radius <= 0 || this.y - this.radius >= innerHeight) {
                 ballArray.splice(ballArray.indexOf(this), 1);
@@ -97,7 +106,6 @@ function Circle(x, y, radius, color) {
                 ballArray.push(new Circle(x, y, radius, color))
         }
         }}
-        console.log(ballArray.length)
     };
 
     this.drawStroke = function () {
@@ -179,4 +187,3 @@ init()
 animate()
 
 
-// PH's Function
