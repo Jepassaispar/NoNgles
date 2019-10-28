@@ -50,13 +50,13 @@ function Circle(x, y, radius, color) {
     this.x = x
     this.y = y
     this.velocity = {
-        x: Math.random() - 0.5,
-        y: Math.random() - 0.5
+        x: Math.random() - 0.8,
+        y: Math.random() - 0.8
     }
     this.radius = radius
     this.color = color
 
-    this.update = () => {
+    this.update = (ballArray) => {
 
         this.drawStroke();
 
@@ -72,23 +72,17 @@ function Circle(x, y, radius, color) {
                 //     if (!isNaN(distanceBetweenTwoObjects))
                 // console.log(distanceBetweenTwoObjects)
             }
-            if ((this.x + this.radius <= 0 || this.x - this.radius >= innerWidth)) {
-                // console.log(ballArray.length)
-                // console.log(`${ballArray[i].x}${ballArray[i].y}${Number(i)} exists in the array`)
-                // console.log(`x:${ballArray[i].x} y:${ballArray[i].y} ${Number(i)}touched the end of the map`);
-                // return ballArray.splice(i, 1);
-                this.velocity.x = -this.velocity.x
-            } 
-            if ((this.y + this.radius <= 0 || this.y - this.radius >= innerHeight)) {
-                // console.log(`${ballArray[i]}${Number(i)} does not exist anymore`);
-                this.velocity.y = -this.velocity.y
+            if (this.x + this.radius <= 0 || this.x - this.radius >= innerWidth || this.y + this.radius <= 0 || this.y - this.radius >= innerHeight) {
+                console.log("heeeere once", i)
+                ballArray.splice(ballArray.indexOf(this), 1);
+                console.log(ballArray.length, this.x, this.y)
+                return;
             }
         }
         this.x += this.velocity.x;
         this.y += this.velocity.y;
-        
+
     };
-    console.log(ballArray.length)
 
     this.drawStroke = function () {
         c.beginPath()
@@ -124,10 +118,10 @@ function init() {
 
     // objects = []
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
+        var radius = 30;
         let x = randomIntFromRange(radius, innerWidth - radius - 2);
         let y = randomIntFromRange(radius, innerHeight - radius);
-        var radius = 30;
         var color = randomColor(colors);
 
         if (i !== 0) {
@@ -146,23 +140,22 @@ function init() {
 
 // Animation Loop
 function animate() {
-    requestAnimationFrame(animate)
     c.clearRect(0, 0, canvas.width, canvas.height)
 
     // circle1.update();
-    circle2.update();
+    circle2.update(ballArray);
     circle2.drawStroke();
     circle2.x = mouse.x;
     circle2.y = mouse.y;
 
     // getDistance(circle1.x, circle1.y, circle2.x, circle2.y)
 
-
     ballArray.forEach(ball => {
         ball.update(ballArray);
         ball.drawFill();
         // console.log((getDistance(circle2.x, circle2.y, ball.x, ball.y)))
     })
+    requestAnimationFrame(animate)
 }
 
 init()
