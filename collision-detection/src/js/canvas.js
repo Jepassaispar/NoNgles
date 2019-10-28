@@ -50,8 +50,8 @@ function Circle(x, y, radius, color) {
     this.x = x
     this.y = y
     this.velocity = {
-        x: Math.random() - 0.8,
-        y: Math.random() - 0.8
+        x: randomIntFromRange(-2,2),
+        y: randomIntFromRange(-2,2)
     }
     this.radius = radius
     this.color = color
@@ -61,27 +61,43 @@ function Circle(x, y, radius, color) {
         this.drawStroke();
 
         for (let i = 0; i < ballArray.length; i++) {
+            var radius = 30;
+
+            var color = randomColor(colors);
             var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, ballArray[i].x, ballArray[i].y) - this.radius * 2;
 
             if (distanceBetweenTwoObjects < 0) {
                 if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(this.radius * 2)))
-                    // console.log(ballArray)
-                    ballArray.splice(i, 1)
-                console.log("has collided")
-                // } else {
-                //     if (!isNaN(distanceBetweenTwoObjects))
-                // console.log(distanceBetweenTwoObjects)
-            }
+                    ballArray.splice(i, 1);
+                    if (circle2.radius <= 300) 
+        // HOW FAST THE MOUSE CIRCLE IS INCREASING
+                    circle2.radius+=.1;
+                }
             if (this.x + this.radius <= 0 || this.x - this.radius >= innerWidth || this.y + this.radius <= 0 || this.y - this.radius >= innerHeight) {
-                console.log("heeeere once", i)
                 ballArray.splice(ballArray.indexOf(this), 1);
-                console.log(ballArray.length, this.x, this.y)
                 return;
             }
+
         }
+
         this.x += this.velocity.x;
         this.y += this.velocity.y;
+        let x = randomIntFromRange(radius, innerWidth - radius - 2);
+        let y = randomIntFromRange(radius, innerHeight - radius);
 
+        //NUMBER OF BALLS SPAWNING ALL THE TIME
+
+        if ( 50 >= circle2.radius) {
+            if (ballArray.length < 20) {
+                ballArray.push(new Circle(x, y, radius, color))
+                
+            }
+        else if (50<= circle2.radius <= 200) {
+            if (ballArray.length < 5) {
+                ballArray.push(new Circle(x, y, radius, color))
+        }
+        }}
+        console.log(ballArray.length)
     };
 
     this.drawStroke = function () {
@@ -99,9 +115,6 @@ function Circle(x, y, radius, color) {
         c.fill()
         c.closePath()
     }
-
-
-
 };
 
 
@@ -109,14 +122,17 @@ function Circle(x, y, radius, color) {
 
 
 // Implementation
-// let circle1;
+
 let circle2;
 
 function init() {
-    // circle1 = new Circle(300, 300, 100, 'black');
     circle2 = new Circle(undefined, undefined, 20, "red")
+    circle2.velocity = {
+        x: 0,
+        y: 0
+    }
 
-    // objects = []
+    // NUMBER OF BALLS SPAWNING AT THE START
 
     for (let i = 0; i < 20; i++) {
         var radius = 30;
@@ -132,10 +148,11 @@ function init() {
                     j = -1;
                 }
             }
+
         }
         ballArray.push(new Circle(x, y, radius, color))
     }
-    console.log(ballArray)
+
 }
 
 // Animation Loop

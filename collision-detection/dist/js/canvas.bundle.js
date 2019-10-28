@@ -154,8 +154,8 @@ function Circle(x, y, radius, color) {
     this.x = x;
     this.y = y;
     this.velocity = {
-        x: Math.random() - 0.8,
-        y: Math.random() - 0.8
+        x: randomIntFromRange(-2, 2),
+        y: randomIntFromRange(-2, 2)
     };
     this.radius = radius;
     this.color = color;
@@ -165,26 +165,40 @@ function Circle(x, y, radius, color) {
         _this.drawStroke();
 
         for (var i = 0; i < ballArray.length; i++) {
+            var radius = 30;
+
+            var color = randomColor(colors);
             var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, ballArray[i].x, ballArray[i].y) - _this.radius * 2;
 
             if (distanceBetweenTwoObjects < 0) {
-                if (distanceBetweenTwoObjects !== 0 && distanceBetweenTwoObjects !== -(_this.radius * 2))
-                    // console.log(ballArray)
-                    ballArray.splice(i, 1);
-                console.log("has collided");
-                // } else {
-                //     if (!isNaN(distanceBetweenTwoObjects))
-                // console.log(distanceBetweenTwoObjects)
+                if (distanceBetweenTwoObjects !== 0 && distanceBetweenTwoObjects !== -(_this.radius * 2)) ballArray.splice(i, 1);
+                if (circle2.radius <= 300)
+                    // HOW FAST THE MOUSE CIRCLE IS INCREASING
+                    circle2.radius += .1;
             }
             if (_this.x + _this.radius <= 0 || _this.x - _this.radius >= innerWidth || _this.y + _this.radius <= 0 || _this.y - _this.radius >= innerHeight) {
-                console.log("heeeere once", i);
                 ballArray.splice(ballArray.indexOf(_this), 1);
-                console.log(ballArray.length, _this.x, _this.y);
                 return;
             }
         }
+
         _this.x += _this.velocity.x;
         _this.y += _this.velocity.y;
+        var x = randomIntFromRange(radius, innerWidth - radius - 2);
+        var y = randomIntFromRange(radius, innerHeight - radius);
+
+        //NUMBER OF BALLS SPAWNING ALL THE TIME
+
+        if (50 >= circle2.radius) {
+            if (ballArray.length < 20) {
+                ballArray.push(new Circle(x, y, radius, color));
+            } else if (50 <= circle2.radius <= 200) {
+                if (ballArray.length < 5) {
+                    ballArray.push(new Circle(x, y, radius, color));
+                }
+            }
+        }
+        console.log(ballArray.length);
     };
 
     this.drawStroke = function () {
@@ -205,16 +219,18 @@ function Circle(x, y, radius, color) {
 };
 
 // Implementation
-// let circle1;
+
 var circle2 = void 0;
 
 function init() {
-    // circle1 = new Circle(300, 300, 100, 'black');
     circle2 = new Circle(undefined, undefined, 20, "red");
+    circle2.velocity = {
+        x: 0,
+        y: 0
 
-    // objects = []
+        // NUMBER OF BALLS SPAWNING AT THE START
 
-    for (var i = 0; i < 20; i++) {
+    };for (var i = 0; i < 20; i++) {
         var radius = 30;
         var x = randomIntFromRange(radius, innerWidth - radius - 2);
         var y = randomIntFromRange(radius, innerHeight - radius);
@@ -231,7 +247,6 @@ function init() {
         }
         ballArray.push(new Circle(x, y, radius, color));
     }
-    console.log(ballArray);
 }
 
 // Animation Loop
