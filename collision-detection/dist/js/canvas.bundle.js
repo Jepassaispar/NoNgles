@@ -153,28 +153,53 @@ function Circle(x, y, radius, color) {
 
     this.x = x;
     this.y = y;
+    this.velocity = {
+        x: Math.random() - 0.5,
+        y: Math.random() - 0.5
+    };
     this.radius = radius;
     this.color = color;
 
     this.update = function () {
-        _this.draw();
+
+        _this.drawStroke();
 
         for (var i = 0; i < ballArray.length; i++) {
             var distanceBetweenTwoObjects = getDistance(_this.x, _this.y, ballArray[i].x, ballArray[i].y) - _this.radius * 2;
+
             if (distanceBetweenTwoObjects < 0) {
                 if (distanceBetweenTwoObjects !== 0 && distanceBetweenTwoObjects !== -(_this.radius * 2)) ballArray[i].color = "pink";
+                // console.log("has collided")
                 // } else {
                 //     if (!isNaN(distanceBetweenTwoObjects))
                 // console.log(distanceBetweenTwoObjects)
             }
+            if (_this.x + _this.radius >= 0 && _this.x - _this.radius <= innerWidth && _this.y + _this.radius >= 0 && _this.y - _this.radius <= innerHeight) {
+                // console.log(ballArray[i])
+                // console.log(`${ballArray[i].x}${ballArray[i].y}${Number(i)} exists in the array`)
+            } else {
+                // console.log(`${ballArray[i].x}${ballArray[i].y} ${Number(i)}touched the end of the map`);
+                ballArray.splice(i, 1);
+                console.log('' + ballArray[i] + Number(i) + ' does not exist anymore');
+            }
         }
+        _this.x += _this.velocity.x;
+        _this.y += _this.velocity.y;
     };
 
-    this.draw = function () {
+    this.drawStroke = function () {
         c.beginPath();
         c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
         c.strokeStyle = this.color;
         c.stroke();
+        c.closePath();
+    };
+
+    this.drawFill = function () {
+        c.beginPath();
+        c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        c.fillStyle = this.color;
+        c.fill();
         c.closePath();
     };
 };
@@ -217,6 +242,7 @@ function animate() {
 
     // circle1.update();
     circle2.update();
+    circle2.drawStroke();
     circle2.x = mouse.x;
     circle2.y = mouse.y;
 
@@ -225,6 +251,7 @@ function animate() {
 
     ballArray.forEach(function (ball) {
         ball.update(ballArray);
+        ball.drawFill();
         // console.log((getDistance(circle2.x, circle2.y, ball.x, ball.y)))
     });
 }

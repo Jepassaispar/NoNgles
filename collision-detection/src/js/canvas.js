@@ -49,31 +49,58 @@ var ballArray = [];
 function Circle(x, y, radius, color) {
     this.x = x
     this.y = y
+    this.velocity = {
+        x: Math.random() - 0.5,
+        y: Math.random() - 0.5
+    }
     this.radius = radius
     this.color = color
 
     this.update = () => {
-        this.draw();
+
+        this.drawStroke();
 
         for (let i = 0; i < ballArray.length; i++) {
             var distanceBetweenTwoObjects = getDistance(this.x, this.y, ballArray[i].x, ballArray[i].y) - this.radius * 2;
+
             if (distanceBetweenTwoObjects < 0) {
                 if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(this.radius * 2)))
                     ballArray[i].color = "pink";
+                // console.log("has collided")
                 // } else {
                 //     if (!isNaN(distanceBetweenTwoObjects))
                 // console.log(distanceBetweenTwoObjects)
             }
+            if ((this.x + this.radius >= 0 && this.x - this.radius <= innerWidth) && (this.y + this.radius >= 0 && this.y - this.radius <= innerHeight)) {
+                // console.log(ballArray[i])
+                // console.log(`${ballArray[i].x}${ballArray[i].y}${Number(i)} exists in the array`)
+            } else {
+                // console.log(`${ballArray[i].x}${ballArray[i].y} ${Number(i)}touched the end of the map`);
+                ballArray.splice(i, 1);
+                console.log(`${ballArray[i]}${Number(i)} does not exist anymore`);
+            }
         }
+        this.x += this.velocity.x;
+        this.y += this.velocity.y;
     };
 
-    this.draw = function () {
+    this.drawStroke = function () {
         c.beginPath()
         c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
         c.strokeStyle = this.color
         c.stroke()
         c.closePath()
     }
+
+    this.drawFill = function () {
+        c.beginPath()
+        c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
+        c.fillStyle = this.color
+        c.fill()
+        c.closePath()
+    }
+
+
 
 };
 
@@ -119,6 +146,7 @@ function animate() {
 
     // circle1.update();
     circle2.update();
+    circle2.drawStroke();
     circle2.x = mouse.x;
     circle2.y = mouse.y;
 
@@ -127,6 +155,7 @@ function animate() {
 
     ballArray.forEach(ball => {
         ball.update(ballArray);
+        ball.drawFill();
         // console.log((getDistance(circle2.x, circle2.y, ball.x, ball.y)))
     })
 }
