@@ -61,28 +61,34 @@ function Circle(x, y, radius, color) {
         this.drawStroke();
 
         for (let i = 0; i < ballArray.length; i++) {
-            var distanceBetweenTwoObjects = getDistance(this.x, this.y, ballArray[i].x, ballArray[i].y) - this.radius * 2;
+            var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, ballArray[i].x, ballArray[i].y) - this.radius * 2;
 
             if (distanceBetweenTwoObjects < 0) {
                 if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(this.radius * 2)))
-                    ballArray[i].color = "pink";
-                // console.log("has collided")
+                    // console.log(ballArray)
+                    ballArray.splice(i, 1)
+                console.log("has collided")
                 // } else {
                 //     if (!isNaN(distanceBetweenTwoObjects))
                 // console.log(distanceBetweenTwoObjects)
             }
-            if ((this.x + this.radius >= 0 && this.x - this.radius <= innerWidth) && (this.y + this.radius >= 0 && this.y - this.radius <= innerHeight)) {
-                // console.log(ballArray[i])
+            if ((this.x + this.radius <= 0 || this.x - this.radius >= innerWidth)) {
+                // console.log(ballArray.length)
                 // console.log(`${ballArray[i].x}${ballArray[i].y}${Number(i)} exists in the array`)
-            } else {
-                // console.log(`${ballArray[i].x}${ballArray[i].y} ${Number(i)}touched the end of the map`);
-                ballArray.splice(i, 1);
-                console.log(`${ballArray[i]}${Number(i)} does not exist anymore`);
+                // console.log(`x:${ballArray[i].x} y:${ballArray[i].y} ${Number(i)}touched the end of the map`);
+                // return ballArray.splice(i, 1);
+                this.velocity.x = -this.velocity.x
+            } 
+            if ((this.y + this.radius <= 0 || this.y - this.radius >= innerHeight)) {
+                // console.log(`${ballArray[i]}${Number(i)} does not exist anymore`);
+                this.velocity.y = -this.velocity.y
             }
         }
         this.x += this.velocity.x;
         this.y += this.velocity.y;
+        
     };
+    console.log(ballArray.length)
 
     this.drawStroke = function () {
         c.beginPath()
@@ -118,10 +124,10 @@ function init() {
 
     // objects = []
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 10; i++) {
         let x = randomIntFromRange(radius, innerWidth - radius - 2);
         let y = randomIntFromRange(radius, innerHeight - radius);
-        var radius = 20;
+        var radius = 30;
         var color = randomColor(colors);
 
         if (i !== 0) {
@@ -133,7 +139,6 @@ function init() {
                 }
             }
         }
-
         ballArray.push(new Circle(x, y, radius, color))
     }
     console.log(ballArray)
