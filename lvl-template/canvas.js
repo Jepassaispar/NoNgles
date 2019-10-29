@@ -5,12 +5,12 @@ var scoreDisplay = document.querySelector("#score");
 let totalScore = 0;
 
 function displayTheScore(score) {
-    console.log(String(score).length)
-    console.log(score);
+    // console.log(String(score).length)
+    // console.log(score);
     if (score === 0) {
         scoreDisplay.textContent = "00000000"
     } else if (String(score).length === 3) {
-        console.log(score)
+        // console.log(score)
         scoreDisplay.textContent = `00000${score}`
     } else if (String(score).length === 4) {
         scoreDisplay.textContent = `0000${score}`
@@ -33,13 +33,29 @@ displayTheScore(totalScore)
 // LIVES //
 
 var hearts = document.querySelectorAll(".heart");
-hearts.forEach(function (heart) {
+// for (var i = 0; i < hearts.length; i++) {
     var fullLife = 20;
-    if (fullLife === 20) {
-        console.log("lol")
-        heart.classList.add('heart-full')
-    }
-})
+    var heart1 = document.getElementById("heart-1");
+    var heart2 = document.getElementById("heart-2");
+    var heart3 = document.getElementById("heart-3");
+    var heart4 = document.getElementById("heart-4");
+    var heart5 = document.getElementById("heart-5"); 
+    heart1.src="./img/1-Full-Heart.png";
+    heart2.src="./img/1-Full-Heart.png";
+    heart3.src="./img/1-Full-Heart.png";
+    heart4.src="./img/1-Full-Heart.png";
+    heart5.src="./img/1-Full-Heart.png";
+    
+// }
+
+
+// hearts.forEach(function (heart) {
+//     var fullLife = 20;
+//     if (fullLife === 20) {
+//         console.log("lol")
+//         heart.classList.add('heart-full')
+//     }
+// })
 
 
 

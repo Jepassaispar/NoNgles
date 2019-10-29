@@ -36,7 +36,7 @@ canvas {
   width: 100vw;
 }
 
-.heart {
+#heart-1, #heart-2, #heart-3, #heart-4, #heart-5 {
   margin-top: 2px;
   height: 10px;
   width: auto
@@ -45,7 +45,7 @@ canvas {
 .heart-full {
   content: url("./img/1-Full-Heart.png");
   height: 10px;
-  width: auto
+  width: auto;
 }
 
 .heart-half {
