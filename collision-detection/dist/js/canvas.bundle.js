@@ -102,6 +102,8 @@ var _utils2 = _interopRequireDefault(_utils);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 // JS
 var scoreDisplay = document.querySelector("span");
 var totalScore = 0;
@@ -117,6 +119,7 @@ canvas.height = innerHeight;
 var mouse = {
     x: innerWidth / 2,
     y: innerHeight / 2
+
 };
 
 var colors = ['#0DFF84', '#E8E60C', '#FF7B00', '#E80CA6', '#001EFF'];
@@ -146,20 +149,32 @@ function randomIntFromRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+function randomIntFromRangeFarFromZero(min, maxOfMin, minOfMax, max) {
+    var randomNumber = randomIntFromRange(min, max);
+    if (maxOfMin <= randomNumber && randomNumber <= minOfMax) return randomNumber;else if (maxOfMin > randomNumber || randomNumber > minOfMax) {
+        randomIntFromRangeFarFromZero(min, maxOfMin, minOfMax, max);
+    }
+    console.log(randomNumber);
+    return randomNumber;
+}
+
 function randomColor(colors) {
     return colors[Math.floor(Math.random() * colors.length)];
 }
 
 var ballArray = [];
 // Objects
-function Circle(x, y, radius, color) {
+
+var Circle = function Circle(x, y, radius, color) {
     var _this = this;
+
+    _classCallCheck(this, Circle);
 
     this.x = x;
     this.y = y;
     this.velocity = {
-        x: randomIntFromRange(-5, 5),
-        y: randomIntFromRange(-5, 5)
+        x: randomIntFromRangeFarFromZero(-20, -15, 15, 20),
+        y: randomIntFromRangeFarFromZero(-20, -15, 15, 20)
     };
     this.radius = radius;
     this.color = color;
@@ -181,7 +196,7 @@ function Circle(x, y, radius, color) {
                 scoreDisplay.textContent = totalScore;
                 if (circle2.radius <= 300)
                     // HOW FAST THE MOUSE CIRCLE IS INCREASING
-                    circle2.radius += 1;
+                    circle2.radius += .1;
             }
             if (_this.x + _this.radius <= 0 || _this.x - _this.radius >= innerWidth || _this.y + _this.radius <= 0 || _this.y - _this.radius >= innerHeight) {
                 ballArray.splice(ballArray.indexOf(_this), 1);
@@ -194,10 +209,9 @@ function Circle(x, y, radius, color) {
         var x = randomIntFromRange(radius, innerWidth - radius - 2);
         var y = randomIntFromRange(radius, innerHeight - radius);
 
-        //NUMBER OF BALLS SPAWNING ALL THE TIME
-
         if (50 >= circle2.radius) {
-            if (ballArray.length < 20) {
+            //NUMBER OF BALLS SPAWNING ALL THE TIME
+            if (ballArray.length < 10) {
                 ballArray.push(new Circle(x, y, radius, color));
             } else if (50 <= circle2.radius <= 200) {
                 if (ballArray.length < 5) {
@@ -224,6 +238,8 @@ function Circle(x, y, radius, color) {
     };
 };
 
+;
+
 // Implementation
 
 var circle2 = void 0;
@@ -236,9 +252,9 @@ function init() {
 
         // NUMBER OF BALLS SPAWNING AT THE START
 
-    };for (var i = 0; i < 20; i++) {
+    };for (var i = 0; i < 10; i++) {
         var radius = 30;
-        var x = randomIntFromRange(radius, innerWidth - radius - 2);
+        var x = randomIntFromRange(innerWidth + radius + 2, innerWidth + radius + 5);
         var y = randomIntFromRange(radius, innerHeight - radius);
         var color = randomColor(colors);
 
