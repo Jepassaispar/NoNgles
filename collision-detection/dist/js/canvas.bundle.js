@@ -335,31 +335,31 @@ var Enemy = function Enemy(x, y, size, color) {
     this.x = x;
     this.y = y;
     this.velocity = {
-        x: randomIntFromRangeFarFromZero(-20, -15, 15, 20),
-        y: randomIntFromRangeFarFromZero(-20, -15, 15, 20)
+        x: 0.5,
+        y: 0.5
     };
-    this.size = size;
 
     this.color = enemyColor;
 
     this.drawEnemy = function () {
         c.beginPath();
         c.moveTo(this.x, this.y);
-        c.lineTo(this.x, this.y - 30);
+        c.lineTo(this.x, this.y - 15);
         c.lineTo(this.x + 10, this.y);
-        c.lineTo(this.x + 10, this.y - 30);
+        c.lineTo(this.x + 10, this.y - 15);
         c.lineWidth = 5;
         c.strokeStyle = enemyColor;
         c.stroke();
         c.closePath();
     };
 
+    this.size = size;
+
     this.update = function (enemyArray) {
 
         for (var i = 0; i < enemyArray.length; i++) {
             // SIZE OF THE ENEMIES //    
-            var size = 30;
-
+            var size = 15;
             var color = randomColor(colors);
             var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, enemyArray[i].x, enemyArray[i].y) - (size + circle2.radius);
 
@@ -386,10 +386,10 @@ var Enemy = function Enemy(x, y, size, color) {
 
         if (50 >= circle2.radius) {
             //NUMBER OF ENEMIES SPAWNING ALL THE TIME
-            if (enemyArray.length < 10) {
+            if (enemyArray.length < 40) {
                 enemyArray.push(new Enemy(x, y, size, color));
             } else if (50 <= circle2.radius <= 200) {
-                if (enemyArray.length < 5) {
+                if (enemyArray.length < 2) {
                     enemyArray.push(new Enemy(x, y, size, color));
                 }
             }
@@ -411,7 +411,8 @@ function init() {
 
         // NUMBER OF BALLS SPAWNING AT THE START
     };for (var i = 0; i < 10; i++) {
-        var radius = 30;
+        // SIZE OF THE STARTING ENNEMIES
+        var radius = 10;
         var x = randomIntFromRange(radius, innerWidth + radius + 5);
         var y = randomIntFromRange(radius, innerHeight - radius);
         var color = randomColor(colors);
@@ -449,16 +450,16 @@ function init() {
 
     // NUMBER OF ENEMIES SPAWNING AT THE START //
     for (var _i2 = 0; _i2 < 10; _i2++) {
-        var size = 30;
+        var size = 10;
         var _x2 = randomIntFromRange(size, innerWidth + size + 2);
         var _y2 = randomIntFromRange(size, innerHeight - size);
         var color = randomColor(enemyColor);
 
         if (_i2 !== 0) {
             for (var _j2 = 0; _j2 < enemyArray.length; _j2++) {
-                if (getDistance(_x2, _y2, enemyArray[_j2].x, enemyArray[_j2].y) - radius * 2 < 0) {
-                    _x2 = randomIntFromRange(radius, innerWidth - radius - 2);
-                    _y2 = randomIntFromRange(radius, innerHeight - radius);
+                if (getDistance(_x2, _y2, enemyArray[_j2].x, enemyArray[_j2].y) - size * 2 < 0) {
+                    _x2 = randomIntFromRange(size, innerWidth - size - 2);
+                    _y2 = randomIntFromRange(size, innerHeight - size);
                     _j2 = -1;
                 }
             }
@@ -477,18 +478,17 @@ function animate() {
     circle2.x = mouse.x;
     circle2.y = mouse.y;
 
-    // getDistance(circle1.x, circle1.y, circle2.x, circle2.y)
+    // ballArray.forEach(ball => {
+    //     ball.update(ballArray);
+    //     ball.drawCircleStroke();
 
-    ballArray.forEach(function (ball) {
-        ball.update(ballArray);
-        ball.drawCircleStroke();
-        // console.log((getDistance(circle2.x, circle2.y, ball.x, ball.y)))
-    });
+    // })
 
-    squareArray.forEach(function (square) {
-        square.update(squareArray);
-        square.drawSquareStroke();
-    });
+    // squareArray.forEach(square => {
+    //     square.update(squareArray);
+    //     square.drawSquareStroke();
+
+    // })
 
     enemyArray.forEach(function (enemy) {
         enemy.update(enemyArray);
