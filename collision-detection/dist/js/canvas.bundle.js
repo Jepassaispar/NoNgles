@@ -213,6 +213,7 @@ var Circle = function Circle(x, y, radius, color) {
                     // HOW FAST THE MOUSE CIRCLE IS INCREASING
                     circle2.radius += .1;
             }
+            // DELIMITATE THE INIT SPAWN IN THE SCREEN //
             if (_this.x + _this.radius <= 0 || _this.x - _this.radius >= innerWidth || _this.y + _this.radius <= 0 || _this.y - _this.radius >= innerHeight) {
                 ballArray.splice(ballArray.indexOf(_this), 1);
                 return;
@@ -253,7 +254,7 @@ var Square = function Square(x, y, size, color) {
         x: randomIntFromRangeFarFromZero(-20, -15, 15, 20),
         y: randomIntFromRangeFarFromZero(-20, -15, 15, 20)
     };
-    this.size = sideSize;
+    this.size = size;
 
     this.color = color;
     this.drawSquareStroke = function () {
@@ -274,41 +275,41 @@ var Square = function Square(x, y, size, color) {
 
     this.update = function (ballArray) {
 
-        _this2.drawSquareStroke();
-
         for (var i = 0; i < ballArray.length; i++) {
-            var sideSize = 30;
+            // SIZE OF THE SQUARES //    
+            var size = 50;
 
             var color = randomColor(colors);
-            var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, squareArray[i].x, squareArray[i].y) - (sideSize + circle2.radius);
+            var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, squareArray[i].x, squareArray[i].y) - (size + circle2.radius);
 
             if (distanceBetweenTwoObjects < 0) {
-                if (distanceBetweenTwoObjects !== 0 && distanceBetweenTwoObjects !== -(circle2.radius + sideSize)) squareArray.splice(i, 1);
+                if (distanceBetweenTwoObjects !== 0 && distanceBetweenTwoObjects !== -(circle2.radius + size)) squareArray.splice(i, 1);
                 // SCORE FOR SQUARES //
                 totalScore += 200;
                 scoreDisplay.textContent = totalScore;
                 if (circle2.radius <= 300)
-                    // HOW FAST THE MOUSE CIRCLE IS INCREASING
+                    // HOW FAST THE MOUSE CIRCLE IS INCREASING //
                     circle2.radius += .1;
             }
-            if (_this2.x + _this2.radius <= 0 || _this2.x - _this2.radius >= innerWidth || _this2.y + _this2.radius <= 0 || _this2.y - _this2.radius >= innerHeight) {
-                ballArray.splice(ballArray.indexOf(_this2), 1);
+            // DELIMITATE THE INIT SPAWN IN THE SCREEN //
+            if (_this2.x + _this2.size <= 0 || _this2.x - _this2.size >= innerWidth || _this2.y + _this2.size <= 0 || _this2.y - _this2.size >= innerHeight) {
+                squareArray.splice(squareArray.indexOf(_this2), 1);
                 return;
             }
         }
 
         _this2.x += _this2.velocity.x;
         _this2.y += _this2.velocity.y;
-        var x = randomIntFromRange(radius, innerWidth - radius - 2);
-        var y = randomIntFromRange(radius, innerHeight - radius);
+        var x = randomIntFromRange(size, innerWidth - size - 2);
+        var y = randomIntFromRange(size, innerHeight - size);
 
         if (50 >= circle2.radius) {
-            //NUMBER OF BALLS SPAWNING ALL THE TIME
-            if (ballArray.length < 10) {
-                ballArray.push(new Circle(x, y, radius, color));
+            //NUMBER OF SQUARE SPAWNING ALL THE TIME
+            if (squareArray.length < 10) {
+                squareArray.push(new Square(x, y, size, color));
             } else if (50 <= circle2.radius <= 200) {
-                if (ballArray.length < 5) {
-                    ballArray.push(new Circle(x, y, radius, color));
+                if (squareArray.length < 5) {
+                    squareArray.push(new Square(x, y, size, color));
                 }
             }
         }
@@ -330,7 +331,7 @@ function init() {
         // NUMBER OF BALLS SPAWNING AT THE START
     };for (var i = 0; i < 10; i++) {
         var radius = 30;
-        var x = randomIntFromRange(innerWidth + radius + 2, innerWidth + radius + 5);
+        var x = randomIntFromRange(radius, innerWidth + radius + 5);
         var y = randomIntFromRange(radius, innerHeight - radius);
         var color = randomColor(colors);
 
@@ -348,21 +349,21 @@ function init() {
 
     // NUMBER OF SQUARES SPAWNING AT THE START //
     for (var _i = 0; _i < 10; _i++) {
-        var sideSize = 30;
-        var _x = randomIntFromRange(innerWidth + radius + 2, innerWidth + sideSize + 5);
-        var _y = randomIntFromRange(radius, innerHeight - sideSize);
+        var size = 30;
+        var _x = randomIntFromRange(size, innerWidth + size + 2);
+        var _y = randomIntFromRange(size, innerHeight - size);
         var color = randomColor(colors);
 
         if (_i !== 0) {
-            for (var _j = 0; _j < ballArray.length; _j++) {
-                if (getDistance(_x, _y, ballArray[_j].x, ballArray[_j].y) - radius * 2 < 0) {
+            for (var _j = 0; _j < squareArray.length; _j++) {
+                if (getDistance(_x, _y, squareArray[_j].x, squareArray[_j].y) - radius * 2 < 0) {
                     _x = randomIntFromRange(radius, innerWidth - radius - 2);
                     _y = randomIntFromRange(radius, innerHeight - radius);
                     _j = -1;
                 }
             }
         }
-        ballArray.push(new Circle(_x, _y, radius, color));
+        squareArray.push(new Square(_x, _y, size, color));
     }
 }
 
@@ -372,7 +373,7 @@ function animate() {
 
     // circle1.update();
     circle2.update(ballArray);
-    circle2.drawCircleStroke();
+    circle2.drawCircleFill();
     circle2.x = mouse.x;
     circle2.y = mouse.y;
 
@@ -380,8 +381,13 @@ function animate() {
 
     ballArray.forEach(function (ball) {
         ball.update(ballArray);
-        ball.drawCircleFill();
+        ball.drawCircleStroke();
         // console.log((getDistance(circle2.x, circle2.y, ball.x, ball.y)))
+    });
+
+    squareArray.forEach(function (square) {
+        square.update(squareArray);
+        square.drawSquareStroke();
     });
     requestAnimationFrame(animate);
 }
