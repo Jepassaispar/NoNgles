@@ -1,11 +1,47 @@
 // JS
-var scoreDisplay = document.querySelector("span");
-var totalScore = 0;
+
+// SCORE //
+var scoreDisplay = document.querySelector("#score");
+let totalScore = 0;
+
+function displayTheScore(score) {
+    console.log(String(score).length)
+    console.log(score);
+    if (score === 0) {
+        scoreDisplay.textContent = "00000000"
+    } else if (String(score).length === 3) {
+        console.log(score)
+        scoreDisplay.textContent = `00000${score}`
+    } else if (String(score).length === 4) {
+        scoreDisplay.textContent = `0000${score}`
+    } else if (String(score).length === 5) {
+        return scoreDisplay.textContent = `000${score}`
+    } else if (String(score).length === 6) {
+        return scoreDisplay.textContent = `00${score}`
+    } else if (String(score).length === 7) {
+        return scoreDisplay.textContent = `0${score}`
+    } else if (String(score).length === 8) {
+        return scoreDisplay.textContent = `${score}`
+    } else {
+        return scoreDisplay = "You broke the game, congrats !"
+    }
+}
+
+displayTheScore(totalScore)
 
 
+// LIVES //
 
-import utils from './utils'
-// import { NONAME } from 'dns'
+var hearts = document.querySelectorAll(".heart");
+hearts.forEach(function (heart) {
+    var fullLife = 20;
+    if (fullLife === 20) {
+        console.log("lol")
+        heart.classList.add('heart-full')
+    }
+})
+
+
 
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
@@ -56,7 +92,6 @@ function randomIntFromRangeFarFromZero(min, maxOfMin, minOfMax, max) {
     else if (maxOfMin > randomNumber || randomNumber > minOfMax) {
         randomIntFromRangeFarFromZero(min, maxOfMin, minOfMax, max);
     }
-    console.log(randomNumber)
     return randomNumber
 }
 
@@ -109,8 +144,7 @@ class Circle {
                     if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(this.radius * 2)))
                         ballArray.splice(i, 1);
                     totalScore += 100;
-                    console.log(totalScore)
-                    scoreDisplay.textContent = totalScore;
+                    displayTheScore(totalScore);
                     if (circle2.radius <= 300)
                         // HOW FAST THE MOUSE CIRCLE IS INCREASING
                         circle2.radius += .1;
@@ -191,7 +225,7 @@ class Square {
                         squareArray.splice(i, 1);
                     // SCORE FOR SQUARES //
                     totalScore += 200;
-                    scoreDisplay.textContent = totalScore;
+                    displayTheScore(totalScore);
                     if (circle2.radius <= 300)
                         // HOW FAST THE MOUSE CIRCLE IS INCREASING //
                         circle2.radius += .1;
@@ -267,7 +301,8 @@ class Enemy {
                         enemyArray.splice(i, 1);
                     // SCORE FOR ENEMIES //
                     totalScore += 200;
-                    scoreDisplay.textContent = totalScore;
+                    // console.log(totalScore)
+                    displayTheScore(totalScore);
                     if (circle2.radius <= 300)
                         // HOW FAST THE MOUSE CIRCLE IS INCREASING //
                         circle2.radius += .1;
