@@ -21,6 +21,8 @@ const mouse = {
 
 const colors = ['#0DFF84', '#E8E60C', '#FF7B00', '#E80CA6', '#001EFF']
 
+const enemyColor = ['#000000'];
+
 // Event Listeners
 addEventListener('mousemove', event => {
     mouse.x = event.clientX
@@ -80,6 +82,7 @@ class Circle {
             c.beginPath()
             c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
             c.strokeStyle = this.color
+            c.lineWidth = 2;
             c.stroke()
             c.closePath()
         }
@@ -88,6 +91,7 @@ class Circle {
             c.beginPath()
             c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
             c.fillStyle = this.color
+            c.lineWidth = 2;
             c.fill()
             c.closePath()
         }
@@ -159,6 +163,7 @@ class Square {
             c.beginPath()
             c.rect(this.x, this.y, this.size, this.size)
             c.strokeStyle = this.color
+            c.lineWidth = 2;
             c.stroke()
             c.closePath()
         }
@@ -167,13 +172,14 @@ class Square {
             c.beginPath()
             c.rect(this.x, this.y, this.size, this.size)
             c.fillStyle = this.color
+            c.lineWidth = 2;
             c.fill()
             c.closePath()
         }
 
-        this.update = (ballArray) => {
+        this.update = (squareArray) => {
 
-            for (let i = 0; i < ballArray.length; i++) {
+            for (let i = 0; i < squareArray.length; i++) {
             // SIZE OF THE SQUARES //    
                 var size = 50;
 
@@ -221,6 +227,82 @@ class Square {
     }
 };
 
+// OBJECTS ENEMIES //
+var enemyArray = [];
+class Enemy {
+    constructor(x, y, size, color) {
+        this.x = x
+        this.y = y
+        this.velocity = {
+            x: randomIntFromRangeFarFromZero(-20, -15, 15, 20),
+            y: randomIntFromRangeFarFromZero(-20, -15, 15, 20)
+        }
+        this.size = size
+
+        this.color = enemyColor
+
+        this.drawEnemy = function () {
+            c.beginPath()
+            c.moveTo(this.x, this.y);
+            c.lineTo(this.x, this.y - 30);
+            c.lineTo(this.x + 10, this.y);
+            c.lineTo(this.x + 10, this.y - 30);
+            c.lineWidth = 5;
+            c.strokeStyle = enemyColor;
+            c.stroke()
+            c.closePath()
+        }
+
+        this.update = (enemyArray) => {
+
+            for (let i = 0; i < enemyArray.length; i++) {
+            // SIZE OF THE ENEMIES //    
+                var size = 30;
+
+                var color = randomColor(colors);
+                var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y,enemyArray[i].x,enemyArray[i].y) - (size + circle2.radius);
+
+                if (distanceBetweenTwoObjects < 0) {
+                    if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(circle2.radius + size)))
+                        enemyArray.splice(i, 1);
+            // SCORE FOR ENEMIES //
+                    totalScore += 200;
+                    scoreDisplay.textContent = totalScore;
+                    if (circle2.radius <= 300)
+            // HOW FAST THE MOUSE CIRCLE IS INCREASING //
+                        circle2.radius += .1;
+                }
+            // DELIMITATE THE INIT SPAWN IN THE SCREEN //
+                if (this.x + this.size <= 0 || this.x - this.size >= innerWidth || this.y + this.size <= 0 || this.y - this.size >= innerHeight) {
+                    enemyArray.splice(enemyArray.indexOf(this), 1);
+                    return;
+                }
+
+            }
+
+            this.x += this.velocity.x;
+            this.y += this.velocity.y;
+            let x = randomIntFromRange(size, innerWidth - size - 2);
+            let y = randomIntFromRange(size, innerHeight - size);
+
+
+            if (50 >= circle2.radius) {
+        //NUMBER OF ENEMIES SPAWNING ALL THE TIME
+                if (enemyArray.length < 10) {
+                    enemyArray.push(new Enemy(x, y, size, color))
+
+                } else if (50 <= circle2.radius <= 200) {
+                    if (enemyArray.length < 5) {
+                        enemyArray.push(new Enemy(x, y, size, color))
+                    }
+                }
+            }
+        };
+
+
+    }
+};
+
 
 
 // Implementation
@@ -234,7 +316,7 @@ function init() {
         y: 0
     }
 
-    // NUMBER OF BALLS SPAWNING AT THE START
+// NUMBER OF BALLS SPAWNING AT THE START
     for (let i = 0; i < 10; i++) {
         var radius = 30;
         let x = randomIntFromRange(radius, innerWidth + radius + 5);
@@ -254,7 +336,7 @@ function init() {
         ballArray.push(new Circle(x, y, radius, color))
     }
 
-    // NUMBER OF SQUARES SPAWNING AT THE START //
+// NUMBER OF SQUARES SPAWNING AT THE START //
     for (let i = 0; i < 10; i++) {
         var size = 30;
         let x = randomIntFromRange(size, innerWidth + size + 2);
@@ -273,6 +355,26 @@ function init() {
         }
         squareArray.push(new Square(x, y, size, color))
     }
+
+// NUMBER OF ENEMIES SPAWNING AT THE START //
+for (let i = 0; i < 10; i++) {
+    var size = 30;
+    let x = randomIntFromRange(size, innerWidth + size + 2);
+    let y = randomIntFromRange(size, innerHeight - size);
+    var color = randomColor(enemyColor);
+
+    if (i !== 0) {
+        for (let j = 0; j < enemyArray.length; j++) {
+            if (getDistance(x, y, enemyArray[j].x, enemyArray[j].y) - radius * 2 < 0) {
+                x = randomIntFromRange(radius, innerWidth - radius - 2);
+                y = randomIntFromRange(radius, innerHeight - radius);
+                j = -1;
+            }
+        }
+
+    }
+    enemyArray.push(new Enemy(x, y, size, color))
+}
 
 }
 
@@ -298,6 +400,11 @@ function animate() {
         square.update(squareArray);
         square.drawSquareStroke();
     
+    })
+
+    enemyArray.forEach(enemy => {
+        enemy.update(enemyArray);
+        enemy.drawEnemy();
     })
     requestAnimationFrame(animate)
 }
