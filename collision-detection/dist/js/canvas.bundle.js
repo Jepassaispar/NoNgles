@@ -162,8 +162,8 @@ function randomColor(colors) {
     return colors[Math.floor(Math.random() * colors.length)];
 }
 
+// OBJECT CIRCLE //
 var ballArray = [];
-// Objects
 
 var Circle = function Circle(x, y, radius, color) {
     var _this = this;
@@ -179,11 +179,26 @@ var Circle = function Circle(x, y, radius, color) {
     this.radius = radius;
     this.color = color;
 
+    this.drawCircleStroke = function () {
+        c.beginPath();
+        c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        c.strokeStyle = this.color;
+        c.stroke();
+        c.closePath();
+    };
+
+    this.drawCircleFill = function () {
+        c.beginPath();
+        c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        c.fillStyle = this.color;
+        c.fill();
+        c.closePath();
+    };
+
     this.update = function (ballArray) {
 
-        _this.drawStroke();
-
         for (var i = 0; i < ballArray.length; i++) {
+            // RADIUS OF BALLARRAY //
             var radius = 30;
 
             var color = randomColor(colors);
@@ -220,21 +235,83 @@ var Circle = function Circle(x, y, radius, color) {
             }
         }
     };
+};
 
-    this.drawStroke = function () {
+;
+
+// OBJECT SQUARE //
+var squareArray = [];
+
+var Square = function Square(x, y, size, color) {
+    var _this2 = this;
+
+    _classCallCheck(this, Square);
+
+    this.x = x;
+    this.y = y;
+    this.velocity = {
+        x: randomIntFromRangeFarFromZero(-20, -15, 15, 20),
+        y: randomIntFromRangeFarFromZero(-20, -15, 15, 20)
+    };
+    this.size = sideSize;
+
+    this.color = color;
+    this.drawSquareStroke = function () {
         c.beginPath();
-        c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        c.rect(this.x, this.y, this.size, this.size);
         c.strokeStyle = this.color;
         c.stroke();
         c.closePath();
     };
 
-    this.drawFill = function () {
+    this.drawSquareFill = function () {
         c.beginPath();
-        c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        c.rect(this.x, this.y, this.size, this.size);
         c.fillStyle = this.color;
         c.fill();
         c.closePath();
+    };
+
+    this.update = function (ballArray) {
+
+        _this2.drawSquareStroke();
+
+        for (var i = 0; i < ballArray.length; i++) {
+            var sideSize = 30;
+
+            var color = randomColor(colors);
+            var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, squareArray[i].x, squareArray[i].y) - (sideSize + circle2.radius);
+
+            if (distanceBetweenTwoObjects < 0) {
+                if (distanceBetweenTwoObjects !== 0 && distanceBetweenTwoObjects !== -(circle2.radius + sideSize)) squareArray.splice(i, 1);
+                // SCORE FOR SQUARES //
+                totalScore += 200;
+                scoreDisplay.textContent = totalScore;
+                if (circle2.radius <= 300)
+                    // HOW FAST THE MOUSE CIRCLE IS INCREASING
+                    circle2.radius += .1;
+            }
+            if (_this2.x + _this2.radius <= 0 || _this2.x - _this2.radius >= innerWidth || _this2.y + _this2.radius <= 0 || _this2.y - _this2.radius >= innerHeight) {
+                ballArray.splice(ballArray.indexOf(_this2), 1);
+                return;
+            }
+        }
+
+        _this2.x += _this2.velocity.x;
+        _this2.y += _this2.velocity.y;
+        var x = randomIntFromRange(radius, innerWidth - radius - 2);
+        var y = randomIntFromRange(radius, innerHeight - radius);
+
+        if (50 >= circle2.radius) {
+            //NUMBER OF BALLS SPAWNING ALL THE TIME
+            if (ballArray.length < 10) {
+                ballArray.push(new Circle(x, y, radius, color));
+            } else if (50 <= circle2.radius <= 200) {
+                if (ballArray.length < 5) {
+                    ballArray.push(new Circle(x, y, radius, color));
+                }
+            }
+        }
     };
 };
 
@@ -251,7 +328,6 @@ function init() {
         y: 0
 
         // NUMBER OF BALLS SPAWNING AT THE START
-
     };for (var i = 0; i < 10; i++) {
         var radius = 30;
         var x = randomIntFromRange(innerWidth + radius + 2, innerWidth + radius + 5);
@@ -269,6 +345,25 @@ function init() {
         }
         ballArray.push(new Circle(x, y, radius, color));
     }
+
+    // NUMBER OF SQUARES SPAWNING AT THE START //
+    for (var _i = 0; _i < 10; _i++) {
+        var sideSize = 30;
+        var _x = randomIntFromRange(innerWidth + radius + 2, innerWidth + sideSize + 5);
+        var _y = randomIntFromRange(radius, innerHeight - sideSize);
+        var color = randomColor(colors);
+
+        if (_i !== 0) {
+            for (var _j = 0; _j < ballArray.length; _j++) {
+                if (getDistance(_x, _y, ballArray[_j].x, ballArray[_j].y) - radius * 2 < 0) {
+                    _x = randomIntFromRange(radius, innerWidth - radius - 2);
+                    _y = randomIntFromRange(radius, innerHeight - radius);
+                    _j = -1;
+                }
+            }
+        }
+        ballArray.push(new Circle(_x, _y, radius, color));
+    }
 }
 
 // Animation Loop
@@ -277,7 +372,7 @@ function animate() {
 
     // circle1.update();
     circle2.update(ballArray);
-    circle2.drawStroke();
+    circle2.drawCircleStroke();
     circle2.x = mouse.x;
     circle2.y = mouse.y;
 
@@ -285,7 +380,7 @@ function animate() {
 
     ballArray.forEach(function (ball) {
         ball.update(ballArray);
-        ball.drawFill();
+        ball.drawCircleFill();
         // console.log((getDistance(circle2.x, circle2.y, ball.x, ball.y)))
     });
     requestAnimationFrame(animate);
