@@ -33,19 +33,146 @@ displayTheScore(totalScore)
 // LIVES //
 
 var hearts = document.querySelectorAll(".heart");
-// for (var i = 0; i < hearts.length; i++) {
-    var fullLife = 20;
-    var heart1 = document.getElementById("heart-1");
-    var heart2 = document.getElementById("heart-2");
-    var heart3 = document.getElementById("heart-3");
-    var heart4 = document.getElementById("heart-4");
-    var heart5 = document.getElementById("heart-5"); 
-    heart1.src="./img/1-Full-Heart.png";
-    heart2.src="./img/1-Full-Heart.png";
-    heart3.src="./img/1-Full-Heart.png";
-    heart4.src="./img/1-Full-Heart.png";
-    heart5.src="./img/1-Full-Heart.png";
-    
+var heart1 = document.getElementById("heart-1");
+var heart2 = document.getElementById("heart-2");
+var heart3 = document.getElementById("heart-3");
+var heart4 = document.getElementById("heart-4");
+var heart5 = document.getElementById("heart-5");
+
+heart1.src = "./img/1-Full-Heart.png";
+heart2.src = "./img/1-Full-Heart.png";
+heart3.src = "./img/1-Full-Heart.png";
+heart4.src = "./img/1-Full-Heart.png";
+heart5.src = "./img/1-Full-Heart.png";
+
+function threeQuarterHeart(heart) {
+    heart.src = "./img/2-three-quarter-Heart.png"
+}
+
+function halfHeart(heart) {
+    heart.src = "./img/3-half-heart.png";
+}
+
+function quarterHeart(heart) {
+    heart.src = "./img/4-quarter-heart.png"
+}
+
+function emptyHeart(heart) {
+    heart.src = "./img/5-empty-heart.png"
+}
+
+var fullLife = 20;
+function decreaseLife(damage) {
+    if (fullLife === 20) {
+        return fullLife -= 1;
+    }
+    if (fullLife === 19) {
+        threeQuarterHeart(heart5)
+        return fullLife -= 1;
+    } else if (fullLife === 18) {
+        halfHeart(heart5)
+        return fullLife -= 1;
+    } else if (fullLife === 17) {
+        quarterHeart(heart5)
+        return fullLife -= 1;
+    } else if (fullLife === 16) {
+        emptyHeart(heart5)
+        return fullLife -= 1;
+    } else if (fullLife === 15) {
+        emptyHeart(heart5)
+        threeQuarterHeart(heart4)
+        return fullLife -= 1;
+    } else if (fullLife === 14) {
+        emptyHeart(heart5)
+        halfHeart(heart4)
+        return fullLife -= 1;
+    } else if (fullLife === 13) {
+        emptyHeart(heart5)
+        quarterHeart(heart4)
+        return fullLife -= 1;
+    } else if (fullLife === 12) {
+        emptyHeart(heart5)
+        emptyHeart(heart4)
+        return fullLife -= 1;
+    } else if (fullLife === 11) {
+        emptyHeart(heart5)
+        emptyHeart(heart4)
+        threeQuarterHeart(heart3)
+        return fullLife -= 1;
+    } else if (fullLife === 10) {
+        emptyHeart(heart5)
+        emptyHeart(heart4)
+        halfHeart(heart3)
+        return fullLife -= 1;
+    } else if (fullLife === 9) {
+        emptyHeart(heart5)
+        emptyHeart(heart4)
+        quarterHeart(heart3)
+        return fullLife -= 1;
+    } else if (fullLife === 8) {
+        emptyHeart(heart5)
+        emptyHeart(heart4)
+        emptyHeart(heart3)
+        return fullLife -= 1;
+    } else if (fullLife === 7) {
+        emptyHeart(heart5)
+        emptyHeart(heart4)
+        emptyHeart(heart3)
+        threeQuarterHeart(heart2)
+        return fullLife -= 1;
+    } else if (fullLife === 6) {
+        emptyHeart(heart5)
+        emptyHeart(heart4)
+        emptyHeart(heart3)
+        halfHeart(heart2)
+        return fullLife -= 1;
+    } else if (fullLife === 5) {
+        emptyHeart(heart5)
+        emptyHeart(heart4)
+        emptyHeart(heart3)
+        quarterHeart(heart2)
+        return fullLife -= 1;
+    } else if (fullLife === 4) {
+        emptyHeart(heart5)
+        emptyHeart(heart4)
+        emptyHeart(heart3)
+        emptyHeart(heart2)
+        return fullLife -= 1;
+    } else if (fullLife === 3) {
+        emptyHeart(heart5)
+        emptyHeart(heart4)
+        emptyHeart(heart3)
+        emptyHeart(heart2)
+        threeQuarterHeart(heart1)
+        return fullLife -= 1;
+    } else if (fullLife === 2) {
+        emptyHeart(heart5)
+        emptyHeart(heart4)
+        emptyHeart(heart3)
+        emptyHeart(heart2)
+        halfHeart(heart1)
+        return fullLife -= 1;
+    } else if (fullLife === 1) {
+        emptyHeart(heart5)
+        emptyHeart(heart4)
+        emptyHeart(heart3)
+        emptyHeart(heart2)
+        quarterHeart(heart1)
+        return fullLife -= 1;
+    }
+    else {
+        emptyHeart(heart5)
+        emptyHeart(heart4)
+        emptyHeart(heart3)
+        emptyHeart(heart2)
+        emptyHeart(heart1)
+        alert("GAME OVER !")
+    }
+
+}
+
+decreaseLife()
+
 // }
 
 
@@ -316,7 +443,8 @@ class Enemy {
                     if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(circle2.radius + size)))
                         enemyArray.splice(i, 1);
                     // SCORE FOR ENEMIES //
-                    totalScore += 200;
+                    totalScore -= 200;
+                    decreaseLife();
                     // console.log(totalScore)
                     displayTheScore(totalScore);
                     if (circle2.radius <= 300)

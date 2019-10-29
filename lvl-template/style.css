@@ -43,7 +43,6 @@ canvas {
 }
 
 .heart-full {
-  content: url("./img/1-Full-Heart.png");
   height: 10px;
   width: auto;
 }
@@ -67,7 +66,7 @@ canvas {
 }
 
 .heart-empty {
-  content: url("/lvl-template/img/empty-heart.png");
+  content: url("./img/empty-heart.png");
   height: 10px;
   width: auto
 }
