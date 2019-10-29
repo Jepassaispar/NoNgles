@@ -11,17 +11,35 @@ function displayTheScore(score) {
         scoreDisplay.textContent = "00000000"
     } else if (String(score).length === 3) {
         // console.log(score)
-        scoreDisplay.textContent = `00000${score}`
+        if (score >= 0)
+            scoreDisplay.textContent = `00000${score}`
+        else
+            scoreDisplay.textContent = `-00000${-score}`
     } else if (String(score).length === 4) {
-        scoreDisplay.textContent = `0000${score}`
+        if (score >= 0)
+            scoreDisplay.textContent = `0000${score}`
+        else
+            scoreDisplay.textContent = `-0000${-score}`
     } else if (String(score).length === 5) {
-        return scoreDisplay.textContent = `000${score}`
+        if (score >= 0)
+            scoreDisplay.textContent = `000${score}`
+        else
+            scoreDisplay.textContent = `-000${-score}`
     } else if (String(score).length === 6) {
-        return scoreDisplay.textContent = `00${score}`
+        if (score >= 0)
+            scoreDisplay.textContent = `00${score}`
+        else
+            scoreDisplay.textContent = `-00${-score}`
     } else if (String(score).length === 7) {
-        return scoreDisplay.textContent = `0${score}`
+        if (score >= 0)
+            scoreDisplay.textContent = `0${score}`
+        else
+            scoreDisplay.textContent = `-0${-score}`
     } else if (String(score).length === 8) {
-        return scoreDisplay.textContent = `${score}`
+        if (score >= 0)
+            scoreDisplay.textContent = `${score}`
+        else
+            scoreDisplay.textContent = `-${-score}`
     } else {
         return scoreDisplay = "You broke the game, congrats !"
     }
@@ -29,6 +47,10 @@ function displayTheScore(score) {
 
 displayTheScore(totalScore)
 
+var mouse = {
+    x: innerWidth / 2,
+    y: innerHeight / 2
+}
 
 // LIVES //
 
@@ -62,6 +84,7 @@ function emptyHeart(heart) {
 }
 
 var fullLife = 20;
+
 function decreaseLife(damage) {
     if (fullLife === 20) {
         return fullLife -= 1;
@@ -159,14 +182,13 @@ function decreaseLife(damage) {
         emptyHeart(heart2)
         quarterHeart(heart1)
         return fullLife -= 1;
-    }
-    else {
+    } else {
         emptyHeart(heart5)
         emptyHeart(heart4)
         emptyHeart(heart3)
         emptyHeart(heart2)
         emptyHeart(heart1)
-        alert("GAME OVER !")
+        // alert("GAME OVER !")
     }
 
 }
@@ -191,12 +213,6 @@ const c = canvas.getContext('2d')
 
 canvas.width = innerWidth
 canvas.height = innerHeight
-
-const mouse = {
-    x: innerWidth / 2,
-    y: innerHeight / 2
-
-}
 
 const colors = ['#0DFF84', '#E8E60C', '#FF7B00', '#E80CA6', '#001EFF']
 
@@ -447,9 +463,9 @@ class Enemy {
                     decreaseLife();
                     // console.log(totalScore)
                     displayTheScore(totalScore);
-                    if (circle2.radius <= 300)
+                    if (circle2.radius <= 100)
                         // HOW FAST THE MOUSE CIRCLE IS INCREASING //
-                        circle2.radius += .1;
+                        circle2.radius += 10;
                 }
                 // DELIMITATE THE INIT SPAWN IN THE SCREEN //
                 if (this.x + this.size <= 0 || this.x - this.size >= innerWidth || this.y + this.size <= 0 || this.y - this.size >= innerHeight) {
