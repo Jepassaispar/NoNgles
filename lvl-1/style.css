@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  /* cursor: none; */
+  cursor: none;
 }
 
 header {
@@ -32,11 +32,15 @@ h6 {
 }
 
 canvas {
-  height: 95vh;
-  width: 100vw;
+  height: 96vh;
+  width: 99vw;
 }
 
-#heart-1, #heart-2, #heart-3, #heart-4, #heart-5 {
+#heart-1,
+#heart-2,
+#heart-3,
+#heart-4,
+#heart-5 {
   margin-top: 2px;
   height: 10px;
   width: auto

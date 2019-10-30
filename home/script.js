@@ -15,6 +15,7 @@ function changeToNoSoundIcon(icon) {
 }
 
 var audio = document.getElementById("menuMusic")
+audio.volume = 0.4
 
 changeToSoundIcon(soundIcon)
 
