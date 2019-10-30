@@ -336,11 +336,11 @@ class Circle {
 
             if (50 >= circle2.radius) {
                 //NUMBER OF BALLS SPAWNING ALL THE TIME
-                if (ballArray.length < 5) {
+                if (ballArray.length < 3) {
                     ballArray.push(new Circle(x, y, radius, color))
 
                 } else if (50 <= circle2.radius <= 200) {
-                    if (ballArray.length < 3) {
+                    if (ballArray.length < 2) {
                         ballArray.push(new Circle(x, y, radius, color))
                     }
                 }
@@ -437,11 +437,11 @@ class Square {
 
             if (50 >= circle2.radius) {
                 //NUMBER OF SQUARE SPAWNING ALL THE TIME
-                if (squareArray.length < 5) {
+                if (squareArray.length < 3) {
                     squareArray.push(new Square(x, y, size, color))
 
                 } else if (50 <= circle2.radius <= 300) {
-                    if (squareArray.length < 3) {
+                    if (squareArray.length < 2) {
                         squareArray.push(new Square(x, y, size, color))
                     }
                 }
@@ -459,8 +459,8 @@ class Enemy {
         this.x = x
         this.y = y
         this.velocity = {
-            x: randomIntFromRangeFarFromZero(-6, -2, 2, 6),
-            y: randomIntFromRangeFarFromZero(-6, -2, 2, 6),
+            x: randomIntFromRangeFarFromZero(-10, -8, 8, 10),
+            y: randomIntFromRangeFarFromZero(-10, -8, 8, 10),
         }
 
         this.color = enemyColor
@@ -517,11 +517,11 @@ class Enemy {
 
             if (50 >= circle2.radius) {
                 //NUMBER OF ENEMIES SPAWNING ALL THE TIME
-                if (enemyArray.length < 3) {
+                if (enemyArray.length < 4) {
                     enemyArray.push(new Enemy(x, y, size, color))
 
                 } else if (50 <= circle2.radius <= 200) {
-                    if (enemyArray.length < 1) {
+                    if (enemyArray.length < 3) {
                         enemyArray.push(new Enemy(x, y, size, color))
                     }
                 }
@@ -546,9 +546,9 @@ function init() {
     }
 
     // NUMBER OF BALLS SPAWNING AT THE START
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 4; i++) {
         // SIZE OF THE STARTING BALLS
-        var radius = 10;
+        var radius = 80;
         let x = randomIntFromRange(radius, innerWidth + radius + 5);
         let y = randomIntFromRange(radius, innerHeight - radius);
         var color = randomColor(colors);
@@ -567,9 +567,9 @@ function init() {
     }
 
     // NUMBER OF SQUARES SPAWNING AT THE START //
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
         // SIZE OF THE STARTING SQUARES
-        var size = 50;
+        var size = 100;
         let x = randomIntFromRange(size, innerWidth + size + 2);
         let y = randomIntFromRange(size, innerHeight - size);
         var color = randomColor(colors);
@@ -589,7 +589,7 @@ function init() {
     }
 
     // NUMBER OF ENEMIES SPAWNING AT THE START //
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 5; i++) {
         // SIZE OF THE STARTING ENNEMIES
         var size = 10;
         let x = randomIntFromRange(size, innerWidth + size + 2);
