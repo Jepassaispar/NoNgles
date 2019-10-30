@@ -29,11 +29,19 @@ h6 {
   margin: 0;
   padding: 0 1em;
   font-family: Staatliches;
+  font-size: 2.5rem;
 }
 
+h5 {
+  margin: 0;
+  padding: 0 1em;
+  font-family: Staatliches;
+}
+
+
 canvas {
-  height: 96vh;
-  width: 99vw;
+  height: 88.8vh;
+  width: 95vw;
 }
 
 #heart-1,
@@ -42,8 +50,30 @@ canvas {
 #heart-4,
 #heart-5 {
   margin-top: 2px;
-  height: 10px;
+  height: 30px;
   width: auto
+}
+
+@media only screen and (max-width: 730px) {
+  h6 {
+    margin: 0;
+    padding: 0 1em;
+    font-family: Staatliches;
+    font-size: 1.5rem;
+  }
+  #heart-1,
+  #heart-2,
+  #heart-3,
+  #heart-4,
+  #heart-5 {
+    margin-top: 2px;
+    height: 20px;
+    width: auto
+  }
+  canvas {
+    height: 91.5vh;
+    width: 95vw;
+  }
 }
 
 .heart-full {

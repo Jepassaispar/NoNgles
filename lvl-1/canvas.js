@@ -80,7 +80,7 @@ function emptyHeart(heart) {
 
 var fullLife = 20;
 
-function decreaseLife(damage) {
+function decreaseLife() {
     if (fullLife === 20) {
         return fullLife -= 1;
     }
@@ -532,6 +532,11 @@ class Enemy {
     }
 };
 
+function win () {
+if (circle2.radius > 200) {
+    alert("YOU WON !")
+}
+}
 
 
 // Implementation
