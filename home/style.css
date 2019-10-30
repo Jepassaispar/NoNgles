@@ -9,6 +9,8 @@ body {
     background-repeat: repeat-x;
     background-color: #a2fdff;
     user-select: none;
+    height: 100%;
+    overflow: hidden
 }
 
 header {
@@ -17,7 +19,6 @@ header {
     flex-direction: column;
     padding: 3%;
     user-select: none;
-
 }
 
 header h1 {
@@ -29,8 +30,6 @@ header h1 {
     padding: 0 0 1% 0;
     font-weight: 400;
     margin: 0;
-    user-select: none;
-
 }
 
 
@@ -40,14 +39,7 @@ header h1 {
     color: black;
 }
 
-@font-face {
-    font-family: 'vampire_warsregular';
-    src: url('./font/webfontkit-20191030-060030/vampire_wars-webfont.woff2') format('woff2'),
-        url('./font/webfontkit-20191030-060030/vampire_wars-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
 
-}
 
 .circle {
     display: flex;
@@ -80,22 +72,18 @@ div {
     padding: 0 20px;
 }
 
-@media only screen and (max-width: 780px) {
-    #inputName {
-        width: 75vw;
-    }
-
-    .circle {
-        margin-top: 1%;
-    }
-}
-
 #inputContainer {
     width: 90vw;
 }
 
+#mainPage {
+    height: 100vh;
+}
+
 .menuButton {
     font-style: normal;
+    font-family: sans-serif;
+    text-align: center;
     text-decoration: none;
     color: black;
     width: 11rem;
@@ -108,6 +96,10 @@ div {
     box-shadow: gray 5px 5px;
     user-select: none;
 
+}
+
+#buttonSelectLvl {
+    width: 9rem;
 }
 
 .menuButton:hover {
@@ -212,5 +204,140 @@ button.premium:hover {
     justify-content: flex-end;
     height: 20px;
     user-select: none;
+
+}
+
+/* HOW TO PLAY */
+
+#howToPlay {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 20vh;
+}
+
+#howToPlay h5 {
+    color: yellow;
+    font-family: modak;
+    font-size: 4.5em;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    font-weight: 400;
+    margin: 0;
+    text-align: center;
+}
+
+p {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: .5em;
+    user-select: none;
+}
+
+.point {
+    flex-direction: row;
+    font-family: sans-serif;
+    justify-content: space-between;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 1.6em;
+    width: 30vw;
+}
+
+.point .n {
+    font-size: 2em;
+    margin-left: 1.5vw;
+}
+
+article {
+    font-family: sans-serif;
+    font-size: 1.7em;
+    text-align: center;
+    padding: 0 10vw 2vh 10vw;
+}
+
+.circleEmpty,
+.squareEmpty {
+    height: 2.5em;
+}
+
+.you {
+    height: 1.5em;
+    margin-left: 1.2vw;
+}
+
+#buttonMenu {
+    margin-top: 4vh;
+}
+
+/* MEDIA QUERIES */
+
+@media only screen and (max-width: 780px) {
+    #inputName {
+        width: 75vw;
+    }
+
+    .circle {
+        margin-top: 1%;
+    }
+
+    .you {
+        margin-left: 2.5vw;
+        margin-right: 35px;
+    }
+
+    .circleEmpty,
+    .squareEmpty {
+        margin-right: 20px;
+    }
+
+    .point {
+        font-weight: bold;
+        text-align: center;
+        white-space: nowrap;
+        font-size: 1.5em;
+    }
+
+    .point .n {
+        font-size: 2em;
+        margin-right: 45px;
+    }
+
+    #howToPlay {
+        margin: none;
+        padding: none;
+    }
+
+    #howToPlay h5 {
+        color: yellow;
+        font-family: modak;
+        font-size: 4.5em;
+        font-weight: 400;
+        margin: 0;
+        text-align: center;
+    }
+
+    article {
+        font-family: sans-serif;
+        font-size: 1.5em;
+        text-align: center;
+        padding: 0 10vw;
+    }
+}
+
+/*ANIMATION*/
+
+@font-face {
+    font-family: 'vampire_warsregular';
+    src: url('./font/webfontkit-20191030-060030/vampire_wars-webfont.woff2') format('woff2'),
+        url('./font/webfontkit-20191030-060030/vampire_wars-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 
 }
