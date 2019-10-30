@@ -219,12 +219,13 @@ const enemyColor = ['#000000'];
 
 // Event Listeners
 addEventListener('mousemove', event => {
-    if (mouse)
+    mouse.x = event.clientX;
+    mouse.y = event.clientY;
 
-        mouse.x = event.clientX - getDistanceWithMaths(event.clientX)
-    mouse.y = event.clientY - getDistanceWithMaths(event.clientY)
-    console.log(`mouse x : ${mouse.x - event.clientX}`)
-    console.log(`mouse y : ${mouse.y-event.clientY}`)
+    //     mouse.x = event.clientX - getDistanceWithMaths(event.clientX)
+    // mouse.y = event.clientY - getDistanceWithMaths(event.clientY)
+    // console.log(`mouse x : ${mouse.x - event.clientX}`)
+    // console.log(`mouse y : ${mouse.y-event.clientY}`)
 })
 
 var increaseNumberOverTime = 0;
@@ -273,6 +274,7 @@ function randomColor(colors) {
 
 
 // OBJECT CIRCLE //
+const radius = 60;
 var ballArray = [];
 class Circle {
     constructor(x, y, radius, color) {
@@ -307,13 +309,12 @@ class Circle {
 
             for (let i = 0; i < ballArray.length; i++) {
                 // RADIUS OF BALLARRAY //
-                var radius = 30;
 
                 var color = randomColor(colors);
                 var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, ballArray[i].x, ballArray[i].y) - (this.radius + circle2.radius);
 
                 if (distanceBetweenTwoObjects < 0) {
-                    if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(this.radius * 2)))
+                    if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(this.radius + circle2.radius)))
                         ballArray.splice(i, 1);
                     audioGainPoint.play();
                     totalScore += 100;
@@ -338,11 +339,11 @@ class Circle {
 
             if (50 >= circle2.radius) {
                 //NUMBER OF BALLS SPAWNING ALL THE TIME
-                if (ballArray.length < 10) {
+                if (ballArray.length < 20) {
                     ballArray.push(new Circle(x, y, radius, color))
 
                 } else if (50 <= circle2.radius <= 200) {
-                    if (ballArray.length < 5) {
+                    if (ballArray.length < 10) {
                         ballArray.push(new Circle(x, y, radius, color))
                     }
                 }
@@ -361,57 +362,61 @@ this.convertToRadians = function (degree) {
 var squareArray = [];
 class Square {
     constructor(x, y, size, color) {
-        this.x = x
-        this.y = y
         this.velocity = {
             x: 1,
             y: 1
         }
         this.size = size
-
+        this.x = x-this.size/2
+        this.y = y-this.size/2
         this.color = color
 
 
 
 
-        this.incrementAngle = function () {
-            angle++;
-            if (angle > 360)
-                angle = 0;
-        }
+        // this.incrementAngle = function () {
+        //     angle++;
+        //     if (angle > 360)
+        //         angle = 0;
+        // }
 
+        
         this.drawSquareStroke = function () {
-            this.incrementAngle();
+            // this.incrementAngle();
+            // function fillRectCentered(c, x, y, size) {
+            // c.rect(x-size/2, y-size/2, size)
+            // }
+            c.beginPath()
+            // fillRectCentered(c, this.x, this.y, this.size)
+            c.rect(this.x - size/2, this.y - size/2, this.size, this.size)
             c.strokeStyle = this.color
             c.lineWidth = 2;
             c.stroke()
-            c.beginPath()
-            c.rect(this.x, this.y, this.size, this.size)
             c.closePath()
         }
 
-        this.drawSquareFill = function () {
-            c.beginPath()
-            c.rect(this.x, this.y, this.size, this.size)
-            c.fillStyle = this.color
-            c.lineWidth = 2;
-            c.fill()
-            c.closePath()
-            c.rotate()
-        }
+        // this.drawSquareFill = function () {
+        //     c.beginPath()
+        //     c.rect(this.x, this.y, this.size, this.size)
+        //     c.lineWidth = 2;
+        //     c.fillStyle = this.color
+        //     c.fill()
+        //     c.closePath()
+        // c.rotate()
+        // }
 
         this.update = (squareArray) => {
 
             for (let i = 0; i < squareArray.length; i++) {
                 // SIZE OF THE SQUARES //    
-                var size = 50;
+                var size = 100;
 
                 var color = randomColor(colors);
-                var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, squareArray[i].x, squareArray[i].y) - (size + circle2.radius);
+                var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, squareArray[i].x, squareArray[i].y) - (size/2 + circle2.radius);
 
                 if (distanceBetweenTwoObjects < 0) {
-                    if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(circle2.radius + size)))
-                        squareArray.splice(i, 1);
+                    if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(circle2.radius + size/2)))
+                    squareArray.splice(i, 1);
                     // SCORE FOR SQUARES //
                     totalScore += 200;
                     audioGainPoint.play();
@@ -425,7 +430,6 @@ class Square {
                     squareArray.splice(squareArray.indexOf(this), 1);
                     return;
                 }
-
             }
 
             this.x += this.velocity.x;
@@ -436,7 +440,7 @@ class Square {
 
             if (50 >= circle2.radius) {
                 //NUMBER OF SQUARE SPAWNING ALL THE TIME
-                if (squareArray.length < 10) {
+                if (squareArray.length < 20) {
                     squareArray.push(new Square(x, y, size, color))
 
                 } else if (50 <= circle2.radius <= 200) {
@@ -466,6 +470,7 @@ class Enemy {
 
         this.drawEnemy = function () {
             c.beginPath()
+            // c.translate(this.x+2, this.y)
             c.moveTo(this.x, this.y);
             c.lineTo(this.x, this.y - 15);
             c.lineTo(this.x + 10, this.y);
@@ -543,11 +548,10 @@ function init() {
         x: 0,
         y: 0
     }
-
     // NUMBER OF BALLS SPAWNING AT THE START
     for (let i = 0; i < 10; i++) {
         // SIZE OF THE STARTING BALLS
-        var radius = 10;
+        // var radius = 10;
         let x = randomIntFromRange(radius, innerWidth + radius + 5);
         let y = randomIntFromRange(radius, innerHeight - radius);
         var color = randomColor(colors);
@@ -566,9 +570,9 @@ function init() {
     }
 
     // NUMBER OF SQUARES SPAWNING AT THE START //
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
         // SIZE OF THE STARTING SQUARES
-        var size = 30;
+        var size = 100;
         let x = randomIntFromRange(size, innerWidth + size + 2);
         let y = randomIntFromRange(size, innerHeight - size);
         var color = randomColor(colors);
@@ -619,26 +623,27 @@ function animate() {
     circle2.x = mouse.x;
     circle2.y = mouse.y;
 
-    ballArray.forEach(ball => {
-        ball.update(ballArray);
-        ball.drawCircleStroke();
 
-    })
+    // ballArray.forEach(ball => {
+    //     ball.update(ballArray);
+    //     ball.drawCircleStroke();
 
-    // squareArray.forEach(square => {
-    //     square.update(squareArray);
-    //     c.save()
-    //     c.translate(square.x, square.y)
-    //     c.rotate(convertToRadians(angle));
-    //     square.drawSquareStroke();
-    //     c.translate(-square.x, -square.y)
-    //     c.restore()
     // })
 
-    enemyArray.forEach(enemy => {
-        enemy.update(enemyArray);
-        enemy.drawEnemy();
+    squareArray.forEach(square => {
+        square.update(squareArray);
+        square.drawSquareStroke();
+        // c.save()
+        // c.translate(square.x, square.y)
+        // c.rotate(convertToRadians(angle));
+        // c.translate(-square.x, -square.y)
+        // c.restore()
     })
+
+    // enemyArray.forEach(enemy => {
+    //     enemy.update(enemyArray);
+    //     enemy.drawEnemy();
+    // })
     requestAnimationFrame(animate)
 }
 

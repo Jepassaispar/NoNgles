@@ -219,12 +219,13 @@ const enemyColor = ['#000000'];
 
 // Event Listeners
 addEventListener('mousemove', event => {
-    if (mouse)
+    mouse.x = event.clientX;
+    mouse.y = event.clientY;
 
-        mouse.x = event.clientX - getDistanceWithMaths(event.clientX)
-    mouse.y = event.clientY - getDistanceWithMaths(event.clientY)
-    console.log(`mouse x : ${mouse.x - event.clientX}`)
-    console.log(`mouse y : ${mouse.y-event.clientY}`)
+    //     mouse.x = event.clientX - getDistanceWithMaths(event.clientX)
+    // mouse.y = event.clientY - getDistanceWithMaths(event.clientY)
+    // console.log(`mouse x : ${mouse.x - event.clientX}`)
+    // console.log(`mouse y : ${mouse.y-event.clientY}`)
 })
 
 var increaseNumberOverTime = 0;
@@ -338,11 +339,11 @@ class Circle {
 
             if (50 >= circle2.radius) {
                 //NUMBER OF BALLS SPAWNING ALL THE TIME
-                if (ballArray.length < 10) {
+                if (ballArray.length < 20) {
                     ballArray.push(new Circle(x, y, radius, color))
 
                 } else if (50 <= circle2.radius <= 200) {
-                    if (ballArray.length < 5) {
+                    if (ballArray.length < 10) {
                         ballArray.push(new Circle(x, y, radius, color))
                     }
                 }
@@ -368,37 +369,36 @@ class Square {
             y: 1
         }
         this.size = size
-
         this.color = color
 
 
 
 
-        this.incrementAngle = function () {
-            angle++;
-            if (angle > 360)
-                angle = 0;
-        }
+        // this.incrementAngle = function () {
+        //     angle++;
+        //     if (angle > 360)
+        //         angle = 0;
+        // }
 
         this.drawSquareStroke = function () {
-            this.incrementAngle();
+            // this.incrementAngle();
+            c.beginPath()
+            c.rect(this.x, this.y, this.size, this.size)
             c.strokeStyle = this.color
             c.lineWidth = 2;
             c.stroke()
-            c.beginPath()
-            c.rect(this.x, this.y, this.size, this.size)
             c.closePath()
         }
 
-        this.drawSquareFill = function () {
-            c.beginPath()
-            c.rect(this.x, this.y, this.size, this.size)
-            c.fillStyle = this.color
-            c.lineWidth = 2;
-            c.fill()
-            c.closePath()
-            c.rotate()
-        }
+        // this.drawSquareFill = function () {
+        //     c.beginPath()
+        //     c.rect(this.x, this.y, this.size, this.size)
+        //     c.lineWidth = 2;
+        //     c.fillStyle = this.color
+        //     c.fill()
+        //     c.closePath()
+        // c.rotate()
+        // }
 
         this.update = (squareArray) => {
 
@@ -425,6 +425,7 @@ class Square {
                     squareArray.splice(squareArray.indexOf(this), 1);
                     return;
                 }
+                console.log(squareArray)
 
             }
 
@@ -436,7 +437,7 @@ class Square {
 
             if (50 >= circle2.radius) {
                 //NUMBER OF SQUARE SPAWNING ALL THE TIME
-                if (squareArray.length < 10) {
+                if (squareArray.length < 20) {
                     squareArray.push(new Square(x, y, size, color))
 
                 } else if (50 <= circle2.radius <= 200) {
@@ -566,7 +567,7 @@ function init() {
     }
 
     // NUMBER OF SQUARES SPAWNING AT THE START //
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
         // SIZE OF THE STARTING SQUARES
         var size = 30;
         let x = randomIntFromRange(size, innerWidth + size + 2);
@@ -584,6 +585,7 @@ function init() {
 
         }
         squareArray.push(new Square(x, y, size, color))
+        console.log(squareArray)
     }
 
     // NUMBER OF ENEMIES SPAWNING AT THE START //
@@ -625,15 +627,15 @@ function animate() {
 
     })
 
-    // squareArray.forEach(square => {
-    //     square.update(squareArray);
-    //     c.save()
-    //     c.translate(square.x, square.y)
-    //     c.rotate(convertToRadians(angle));
-    //     square.drawSquareStroke();
-    //     c.translate(-square.x, -square.y)
-    //     c.restore()
-    // })
+    squareArray.forEach(square => {
+        square.update(squareArray);
+        square.drawSquareStroke();
+        // c.save()
+        // c.translate(square.x, square.y)
+        // c.rotate(convertToRadians(angle));
+        // c.translate(-square.x, -square.y)
+        // c.restore()
+    })
 
     enemyArray.forEach(enemy => {
         enemy.update(enemyArray);

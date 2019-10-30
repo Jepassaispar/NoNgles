@@ -43,6 +43,8 @@ menuButtons.forEach(function (button) {
 
 /* SELECT LVL */
 
-var selectLvl = document.querySelector("buttonSelectLvl")
+// var selectLvl = document.querySelector("buttonSelectLvl")
 
-selectLvl.onclick=function ()
+// selectLvl.onclick=function () {
+
+// }
