@@ -47,11 +47,6 @@ function displayTheScore(score) {
 
 displayTheScore(totalScore)
 
-var mouse = {
-    x: innerWidth / 2,
-    y: innerHeight / 2
-}
-
 // LIVES //
 
 var hearts = document.querySelectorAll(".heart");
@@ -195,17 +190,19 @@ function decreaseLife(damage) {
 
 decreaseLife()
 
-// }
+// AUDIO
+var audioLosePoint = document.querySelector("#losePoint")
+var audioGainPoint = document.querySelector("#gainPoint")
+var audio
 
 
-// hearts.forEach(function (heart) {
-//     var fullLife = 20;
-//     if (fullLife === 20) {
-//         console.log("lol")
-//         heart.classList.add('heart-full')
-//     }
-// })
 
+var mouse = {
+    x: innerWidth / 2,
+    y: innerHeight / 2,
+    velocityX: 1,
+    velocityY: 1
+}
 
 
 const canvas = document.querySelector('canvas')
@@ -218,11 +215,25 @@ const colors = ['#0DFF84', '#E8E60C', '#FF7B00', '#E80CA6', '#001EFF']
 
 const enemyColor = ['#000000'];
 
+
+
 // Event Listeners
 addEventListener('mousemove', event => {
-    mouse.x = event.clientX
-    mouse.y = event.clientY
+    if (mouse)
+
+    mouse.x = event.clientX - getDistanceWithMaths(event.clientX)
+    mouse.y = event.clientY - getDistanceWithMaths(event.clientY)
+    console.log(`mouse x : ${mouse.x - event.clientX}`)
+    console.log(`mouse y : ${mouse.y-event.clientY}`)
 })
+
+var increaseNumberOverTime = 0;
+var speed = 0.0001;
+
+function getDistanceWithMaths(mousecoor) {
+    speed -= .0001;
+    return mousecoor * speed;
+}
 
 addEventListener('resize', () => {
     canvas.width = innerWidth
@@ -237,6 +248,8 @@ function getDistance(x1, y1, x2, y2) {
 
     return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
 }
+
+
 
 // Utility functions
 function randomIntFromRange(min, max) {
@@ -266,8 +279,8 @@ class Circle {
         this.x = x
         this.y = y
         this.velocity = {
-            x: randomIntFromRangeFarFromZero(-20, -15, 15, 20),
-            y: randomIntFromRangeFarFromZero(-20, -15, 15, 20)
+            x: 1,
+            y: 1
         }
         this.radius = radius
         this.color = color
@@ -301,7 +314,8 @@ class Circle {
 
                 if (distanceBetweenTwoObjects < 0) {
                     if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(this.radius * 2)))
-                        ballArray.splice(i, 1);
+                    ballArray.splice(i, 1);
+                    audioGainPoint.play();
                     totalScore += 100;
                     displayTheScore(totalScore);
                     if (circle2.radius <= 300)
@@ -338,6 +352,10 @@ class Circle {
     }
 };
 
+var angle = 0;
+this.convertToRadians = function (degree) {
+    return degree * (Math.PI / 180)
+}
 
 // OBJECT SQUARE //
 var squareArray = [];
@@ -346,18 +364,29 @@ class Square {
         this.x = x
         this.y = y
         this.velocity = {
-            x: randomIntFromRangeFarFromZero(-20, -15, 15, 20),
-            y: randomIntFromRangeFarFromZero(-20, -15, 15, 20)
+            x: 1,
+            y: 1
         }
         this.size = size
 
         this.color = color
+
+
+
+
+        this.incrementAngle = function () {
+            angle++;
+            if (angle > 360)
+                angle = 0;
+        }
+
         this.drawSquareStroke = function () {
-            c.beginPath()
-            c.rect(this.x, this.y, this.size, this.size)
+            this.incrementAngle();
             c.strokeStyle = this.color
             c.lineWidth = 2;
             c.stroke()
+            c.beginPath()
+            c.rect(this.x, this.y, this.size, this.size)
             c.closePath()
         }
 
@@ -368,6 +397,7 @@ class Square {
             c.lineWidth = 2;
             c.fill()
             c.closePath()
+            c.rotate()
         }
 
         this.update = (squareArray) => {
@@ -384,6 +414,7 @@ class Square {
                         squareArray.splice(i, 1);
                     // SCORE FOR SQUARES //
                     totalScore += 200;
+                    audioGainPoint.play();
                     displayTheScore(totalScore);
                     if (circle2.radius <= 300)
                         // HOW FAST THE MOUSE CIRCLE IS INCREASING //
@@ -439,6 +470,7 @@ class Enemy {
             c.lineTo(this.x, this.y - 15);
             c.lineTo(this.x + 10, this.y);
             c.lineTo(this.x + 10, this.y - 15);
+            c.lineTo(this.x + 7, this.y - 15);
             c.lineWidth = 5;
             c.strokeStyle = enemyColor;
             c.stroke()
@@ -459,13 +491,14 @@ class Enemy {
                     if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(circle2.radius + size)))
                         enemyArray.splice(i, 1);
                     // SCORE FOR ENEMIES //
-                    totalScore -= 200;
-                    decreaseLife();
+                        audioLosePoint.play();
+                        totalScore -= 200;
+                        decreaseLife();
                     // console.log(totalScore)
                     displayTheScore(totalScore);
                     if (circle2.radius <= 100)
                         // HOW FAST THE MOUSE CIRCLE IS INCREASING //
-                        circle2.radius += 10;
+                        circle2.radius -= .5;
                 }
                 // DELIMITATE THE INIT SPAWN IN THE SCREEN //
                 if (this.x + this.size <= 0 || this.x - this.size >= innerWidth || this.y + this.size <= 0 || this.y - this.size >= innerHeight) {
@@ -483,7 +516,7 @@ class Enemy {
 
             if (50 >= circle2.radius) {
                 //NUMBER OF ENEMIES SPAWNING ALL THE TIME
-                if (enemyArray.length < 40) {
+                if (enemyArray.length < 20) {
                     enemyArray.push(new Enemy(x, y, size, color))
 
                 } else if (50 <= circle2.radius <= 200) {
@@ -586,16 +619,20 @@ function animate() {
     circle2.x = mouse.x;
     circle2.y = mouse.y;
 
-    // ballArray.forEach(ball => {
-    //     ball.update(ballArray);
-    //     ball.drawCircleStroke();
+    ballArray.forEach(ball => {
+        ball.update(ballArray);
+        ball.drawCircleStroke();
 
-    // })
+    })
 
     // squareArray.forEach(square => {
     //     square.update(squareArray);
+    //     c.save()
+    //     c.translate(square.x, square.y)
+    //     c.rotate(convertToRadians(angle));
     //     square.drawSquareStroke();
-
+    //     c.translate(-square.x, -square.y)
+    //     c.restore()
     // })
 
     enemyArray.forEach(enemy => {

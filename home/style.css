@@ -4,7 +4,9 @@
 }
 
 body {
-    background-color:#00d4ff;
+    background-image: url("http://giphygifs.s3.amazonaws.com/media/jtavDv8iqstY4/giphy.gif");
+    background-repeat: no-repeat;
+    background-color:#a2fdff;
     user-select: none;
 }
 
@@ -28,7 +30,18 @@ header h1 {
 
 
 .n {
+    font-family: "vampire_warsregular";
+    font-weight: 800;
     color: black;
+}
+
+@font-face {
+    font-family: 'vampire_warsregular';
+    src: url('./font/webfontkit-20191030-060030/vampire_wars-webfont.woff2') format('woff2'),
+         url('./font/webfontkit-20191030-060030/vampire_wars-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
 }
 
 .circle {
@@ -64,10 +77,10 @@ div {
     user-select:none;
 }
 
-button{
+.menuButton{
     font-style: normal;
     text-decoration: none;
-    color: white;
+    color: black;
     width: 10rem;
     font-size: 1.5rem;
     background-color: yellow;
@@ -78,13 +91,13 @@ button{
     box-shadow: gray 5px 5px;
 }
 
-button:hover{
+.menuButton:hover{
     cursor: pointer;
     transform: scale(1.1);
     transition: .3s linear;
 }
 
-button.premium {
+/* button.premium {
     background-color: red;
     width: 11rem;
 }
@@ -93,7 +106,7 @@ button.premium:hover {
     background-color: red;
     transform: scale(1.3);
     transition: .4s linear;
-}
+} */
 
 /* Header */
 /* /////////////////////////////////////////// */
@@ -142,3 +155,27 @@ button.premium:hover {
         transform: rotate(0deg);
     }
   }
+
+/* SOUND BUTOON */
+
+#soundButtonDiv {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    /* justify-content: flex-end; */
+}
+
+#soundButton {
+    display:flex;
+    justify-content: flex-end;
+    background: none;
+    border: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+#soundIcon {
+    display: flex;
+    justify-content: flex-end;
+    height:20px;
+}

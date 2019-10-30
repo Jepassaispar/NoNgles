@@ -7,13 +7,19 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script type="module" src="script.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./font/vampire_wars/Vampire Wars.ttf" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Modak&display=swap" rel="stylesheet">
     <title>NaNgles</title>
 </head>
 
 <body>
-
+    
     <header>
+        <div id="soundButtonDiv">
+            <button id="soundButton"><img alt="" id="soundIcon" src="">
+            <audio autoplay id="menuMusic" src="/home/music/33 - Banjo Tooie - Happy Jinjo House.mp3">
+            </button>
+        </div>
         <h1>
             <span class="n is-rotating">N</span>
             <span class="circle is-moving"></span>
@@ -27,20 +33,20 @@
 
     <div id="menuBars">
         <div>
-            <button href="#">Select lvl</button>
+            <button class="menuButton" href="#">Select lvl</button>
         </div>
         <div>
-            <button href="#">Options</button>
+            <button class="menuButton" href="#">Options</button>
         </div>
         <div>
-            <button href="">Highscore</button>
+            <button class="menuButton" href="">Highscore</button>
         </div>
         <div>
-            <button href="">Credits</button>
+            <button class="menuButton" href="">Credits</button>
         </div>
-        <div>
+        <!-- <div>
             <button href="" class="premium">*PREMIUM*</button>
-        </div>
+        </div> -->
     </div>
 
 </body>

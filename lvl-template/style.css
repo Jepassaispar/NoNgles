@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  cursor: none;
+  /* cursor: none; */
 }
 
 header {
@@ -45,28 +45,4 @@ canvas {
 .heart-full {
   height: 10px;
   width: auto;
-}
-
-.heart-half {
-  content: url("./img/3-half-heart.png");
-  height: 10px;
-  width: auto
-}
-
-.heart-quarter {
-  content: url("./img/4-quarter-heart.png");
-  height: 10px;
-  width: auto
-}
-
-.heart-threequarters {
-  content: url("./img/2-three-quarter-Heart.png");
-  height: 10px;
-  width: auto
-}
-
-.heart-empty {
-  content: url("./img/empty-heart.png");
-  height: 10px;
-  width: auto
 }

@@ -2,12 +2,41 @@ var nLetter = document.querySelector(".n");
 
 var menuButtons = document.querySelectorAll('#menuBars button');
 
-function hoverOverButtons (button) {
-    
+var soundButton = document.getElementById("soundButton")
+
+var soundIcon = document.getElementById("soundIcon")
+
+function changeToSoundIcon(icon) {
+    icon.src = './img/icon-sound.png'
+}
+
+function changeToNoSoundIcon(icon) {
+    icon.src = './img/icon-no-sound.png'
+}
+
+var audio = document.getElementById("menuMusic")
+
+changeToSoundIcon(soundIcon)
+
+var soundOrNot = 0;
+soundButton.onclick = function toggleSound() {
+    // soundButton = 'pause'
+    soundOrNot++;
+    if (soundOrNot % 2 != 0) {
+        changeToNoSoundIcon(soundIcon)
+        audio.pause();
+    }
+    // soundButton = 'start'
+    else {
+        changeToSoundIcon(soundIcon);
+        audio.play();
+    }
+}
+
+function hoverOverButtons(button) {
+
 }
 
 menuButtons.forEach(function (button) {
-    button.onclick=hoverOverButtons
-    }
-)
-
+    button.onclick = hoverOverButtons
+})
