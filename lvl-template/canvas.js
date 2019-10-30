@@ -221,7 +221,7 @@ const enemyColor = ['#000000'];
 addEventListener('mousemove', event => {
     if (mouse)
 
-    mouse.x = event.clientX - getDistanceWithMaths(event.clientX)
+        mouse.x = event.clientX - getDistanceWithMaths(event.clientX)
     mouse.y = event.clientY - getDistanceWithMaths(event.clientY)
     console.log(`mouse x : ${mouse.x - event.clientX}`)
     console.log(`mouse y : ${mouse.y-event.clientY}`)
@@ -314,7 +314,7 @@ class Circle {
 
                 if (distanceBetweenTwoObjects < 0) {
                     if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(this.radius * 2)))
-                    ballArray.splice(i, 1);
+                        ballArray.splice(i, 1);
                     audioGainPoint.play();
                     totalScore += 100;
                     displayTheScore(totalScore);
@@ -491,9 +491,9 @@ class Enemy {
                     if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(circle2.radius + size)))
                         enemyArray.splice(i, 1);
                     // SCORE FOR ENEMIES //
-                        audioLosePoint.play();
-                        totalScore -= 200;
-                        decreaseLife();
+                    audioLosePoint.play();
+                    totalScore -= 200;
+                    decreaseLife();
                     // console.log(totalScore)
                     displayTheScore(totalScore);
                     if (circle2.radius <= 100)

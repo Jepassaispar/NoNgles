@@ -1,0 +1,48 @@
+body {
+  margin: 0;
+  padding: 0;
+  /* cursor: none; */
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  background-color: lightblue;
+  border-bottom: 1px solid gray;
+  box-shadow: 1px 1px lightgray;
+}
+
+footer {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(173, 216, 230);
+  border-top: 1px solid gray;
+  box-shadow: 1px 1px lightgray;
+}
+
+h6 {
+  margin: 0;
+  padding: 0 1em;
+  font-family: Staatliches;
+}
+
+canvas {
+  height: 95vh;
+  width: 100vw;
+}
+
+#heart-1, #heart-2, #heart-3, #heart-4, #heart-5 {
+  margin-top: 2px;
+  height: 10px;
+  width: auto
+}
+
+.heart-full {
+  height: 10px;
+  width: auto;
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link href="https://fonts.googleapis.com/css?family=Staatliches&display=swap" rel="stylesheet">
+  <title>LvL NaNgles</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <header>
+    <h6>LIVES : <span>
+        <img alt="HEART" id="heart-1" class="heart">
+        <img alt="HEART" id="heart-2" class="heart">
+        <img alt="HEART" id="heart-3" class="heart">
+        <img alt="HEART" id="heart-4" class="heart">
+        <img alt="HEART" id="heart-5" class="heart">
+      </span></h6>
+    <h6>SCORE : <span id="score">0000000000</span></h6>
+  </header>
+  <canvas></canvas>
+  <footer>
+    <h6>made with <img src="./img/1-Full-Heart.png" class="heart-full" alt=""> by PH</h6>
+  </footer>
+  <audio id="gainPoint" src="/lvl-template/sound/point-gain.wav" hidden="true" autostart="false">
+    <audio id="losePoint" src="/lvl-template/sound/point-lose.wav" hidden="true" autostart="false">
+      <audio id="lvl-success" src="/lvl-template/sound/lvl-success.wav" hidden="true" autostart="false">
+        <audio id="lvl-fail" src="/lvl-template/sound/lvl-fail.wav" hidden="true" autostart="false">
+          <script src="./canvas.js">
+          </script>
+</body>
+
+</html>

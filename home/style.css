@@ -1,12 +1,13 @@
 * {
     margin: 0;
     padding: 0;
+    outline: none;
 }
 
 body {
     background-image: url("http://giphygifs.s3.amazonaws.com/media/jtavDv8iqstY4/giphy.gif");
-    background-repeat: no-repeat;
-    background-color:#a2fdff;
+    background-repeat: repeat-x;
+    background-color: #a2fdff;
     user-select: none;
 }
 
@@ -15,6 +16,8 @@ header {
     justify-content: center;
     flex-direction: column;
     padding: 3%;
+    user-select: none;
+
 }
 
 header h1 {
@@ -26,6 +29,8 @@ header h1 {
     padding: 0 0 5% 0;
     font-weight: 400;
     margin: 0;
+    user-select: none;
+
 }
 
 
@@ -38,7 +43,7 @@ header h1 {
 @font-face {
     font-family: 'vampire_warsregular';
     src: url('./font/webfontkit-20191030-060030/vampire_wars-webfont.woff2') format('woff2'),
-         url('./font/webfontkit-20191030-060030/vampire_wars-webfont.woff') format('woff');
+        url('./font/webfontkit-20191030-060030/vampire_wars-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 
@@ -46,14 +51,14 @@ header h1 {
 
 .circle {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     margin-top: 2.5%;
     height: 50px;
     width: 50px;
-    background-color:yellow;
+    background-color: yellow;
     border-radius: 50%;
-  }
+}
 
 div {
     display: flex;
@@ -61,6 +66,8 @@ div {
     justify-content: center;
     align-items: center;
     margin: .5em;
+    user-select: none;
+
 }
 
 #inputName {
@@ -73,11 +80,17 @@ div {
     padding: 0 20px;
 }
 
-#inputContainer {
-    user-select:none;
+@media only screen and (max-width: 780px) {
+    #inputName {
+        width: 75vw;
+    }
 }
 
-.menuButton{
+#inputContainer {
+    width: 90vw;
+}
+
+.menuButton {
     font-style: normal;
     text-decoration: none;
     color: black;
@@ -89,12 +102,20 @@ div {
     padding: 8%;
     white-space: nowrap;
     box-shadow: gray 5px 5px;
+    user-select: none;
+
 }
 
-.menuButton:hover{
+.menuButton:hover {
     cursor: pointer;
     transform: scale(1.1);
     transition: .3s linear;
+    user-select: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
 }
 
 /* button.premium {
@@ -117,8 +138,7 @@ button.premium:hover {
 }
 
 .is-rotating {
-    animation: 1s linear 0s infinite rotateBox
-    , 3s linear 0s alternate infinite changeBackground;
+    animation: 1s linear 0s infinite rotateBox, 3s linear 0s alternate infinite changeBackground;
 }
 
 .is-moving {
@@ -127,34 +147,40 @@ button.premium:hover {
 
 @keyframes increaseBox {
     0% {
-      transform: scale(1, 1);
+        transform: scale(1, 1);
     }
+
     50% {
         transform: scale(1.5, 1.5);
     }
+
     100% {
-      transform: translate(1, 1);
+        transform: translate(1, 1);
     }
 
-  }
-  
-  @keyframes rotateBox {
+}
+
+@keyframes rotateBox {
     0% {
         transform: rotate(0deg);
     }
+
     25% {
         transform: rotate(-25deg);
     }
+
     50% {
         transform: rotate(0deg);
     }
+
     75% {
         transform: rotate(25deg);
     }
+
     100% {
         transform: rotate(0deg);
     }
-  }
+}
 
 /* SOUND BUTOON */
 
@@ -163,19 +189,24 @@ button.premium:hover {
     justify-content: flex-end;
     align-items: flex-end;
     /* justify-content: flex-end; */
+    user-select: none;
 }
 
 #soundButton {
-    display:flex;
+    display: flex;
     justify-content: flex-end;
     background: none;
     border: none;
     user-select: none;
     cursor: pointer;
+    user-select: none;
+
 }
 
 #soundIcon {
     display: flex;
     justify-content: flex-end;
-    height:20px;
+    height: 20px;
+    user-select: none;
+
 }

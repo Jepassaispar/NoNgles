@@ -40,3 +40,9 @@ function hoverOverButtons(button) {
 menuButtons.forEach(function (button) {
     button.onclick = hoverOverButtons
 })
+
+/* SELECT LVL */
+
+var selectLvl = document.querySelector("buttonSelectLvl")
+
+selectLvl.onclick=function ()
