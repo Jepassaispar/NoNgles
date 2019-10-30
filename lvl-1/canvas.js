@@ -362,13 +362,13 @@ this.convertToRadians = function (degree) {
 var squareArray = [];
 class Square {
     constructor(x, y, size, color) {
-        this.x = x
-        this.y = y
         this.velocity = {
             x: 1,
             y: 1
         }
         this.size = size
+        this.x = x - this.size / 2
+        this.y = y - this.size / 2
         this.color = color
 
 
@@ -380,10 +380,15 @@ class Square {
         //         angle = 0;
         // }
 
+
         this.drawSquareStroke = function () {
             // this.incrementAngle();
+            // function fillRectCentered(c, x, y, size) {
+            // c.rect(x-size/2, y-size/2, size)
+            // }
             c.beginPath()
-            c.rect(this.x, this.y, this.size, this.size)
+            // fillRectCentered(c, this.x, this.y, this.size)
+            c.rect(this.x - size / 2, this.y - size / 2, this.size, this.size)
             c.strokeStyle = this.color
             c.lineWidth = 2;
             c.stroke()
@@ -404,13 +409,13 @@ class Square {
 
             for (let i = 0; i < squareArray.length; i++) {
                 // SIZE OF THE SQUARES //    
-                var size = 50;
+                var size = 100;
 
                 var color = randomColor(colors);
-                var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, squareArray[i].x, squareArray[i].y) - (size + circle2.radius);
+                var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, squareArray[i].x, squareArray[i].y) - (size / 2 + circle2.radius);
 
                 if (distanceBetweenTwoObjects < 0) {
-                    if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(circle2.radius + size)))
+                    if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(circle2.radius + size / 2)))
                         squareArray.splice(i, 1);
                     // SCORE FOR SQUARES //
                     totalScore += 200;
@@ -418,15 +423,13 @@ class Square {
                     displayTheScore(totalScore);
                     if (circle2.radius <= 300)
                         // HOW FAST THE MOUSE CIRCLE IS INCREASING //
-                        circle2.radius += .1;
+                        circle2.radius += 2;
                 }
                 // DELIMITATE THE INIT SPAWN IN THE SCREEN //
                 if (this.x + this.size <= 0 || this.x - this.size >= innerWidth || this.y + this.size <= 0 || this.y - this.size >= innerHeight) {
                     squareArray.splice(squareArray.indexOf(this), 1);
                     return;
                 }
-                console.log(squareArray)
-
             }
 
             this.x += this.velocity.x;
@@ -585,7 +588,7 @@ function init() {
 
         }
         squareArray.push(new Square(x, y, size, color))
-        console.log(squareArray)
+        // console.log(squareArray)
     }
 
     // NUMBER OF ENEMIES SPAWNING AT THE START //
