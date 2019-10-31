@@ -49,17 +49,25 @@ h4 {
 
 canvas {
   height: 88.8vh;
-  width: 95vw;
+  width: 100vw;
 }
 
 #heart-1,
 #heart-2,
 #heart-3,
 #heart-4,
-#heart-5 {
+#heart-5,
+.fullCircle {
   margin-top: 2px;
   height: 30px;
   width: auto
+}
+
+.displayCircleRadius {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  left: 45%;
 }
 
 .pauseButton {
@@ -68,7 +76,7 @@ canvas {
 }
 
 .pauseButton:hover {
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .pauseButton img {
@@ -85,7 +93,7 @@ canvas {
 /* POP-UP */
 
 .popUpParentDiv {
-  z-index: 1;  
+  z-index: 1;
 }
 
 a {
@@ -129,16 +137,19 @@ a {
   animation: fadeIn 1s
 }
 
-.closePopUpWin, .closePopUpLose {
-    background-color: lightblue;
-    color: black;
-    border: none;
-    font-size: 1.8em;
-    font-family: sans-serif;
-    font-weight: bold;
+.closePopUpWin,
+.closePopUpLose {
+  background-color: lightblue;
+  color: black;
+  border: none;
+  font-size: 1.8em;
+  font-family: sans-serif;
+  font-weight: bold;
 }
 
-.retryLvl, .goToMenu, .nextLvl {
+.retryLvl,
+.goToMenu,
+.nextLvl {
   font-weight: 600;
   border-radius: 30px;
   width: 10em;
@@ -151,7 +162,9 @@ a {
   z-index: 1;
 }
 
-.retryLvl:hover, .goToMenu:hover, .nextLvl:hover {
+.retryLvl:hover,
+.goToMenu:hover,
+.nextLvl:hover {
   cursor: pointer;
   transform: scale(1.1);
   transition: .3s linear;
@@ -164,13 +177,23 @@ a {
 
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity:1 ;}
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @media only screen and (max-width: 730px) {
@@ -178,28 +201,34 @@ a {
     margin: 0;
     padding: 0 1em;
     font-family: Staatliches;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
+
   #heart-1,
   #heart-2,
   #heart-3,
   #heart-4,
-  #heart-5 {
+  #heart-5,
+  .fullCircle {
     margin-top: 2px;
     height: 20px;
     width: auto
   }
+
   canvas {
-    height: 91.5vh;
-    width: 95vw;
+    height: 92vh;
+    width: 100vw;
   }
+
   .pauseButton img {
     height: 20px;
   }
+
   .popup .popuptext {
     bottom: 15vh;
     left: 20vw;
   }
+
   .popup .popuptext {
     width: 20rem;
     font-size: 1.2rem;
