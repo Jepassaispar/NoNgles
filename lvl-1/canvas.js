@@ -656,11 +656,8 @@ function checkIfWin() {
     return
 }
 
-var circleRadius = document.querySelector("#circleRadius");
-
 function displayValueCircleRadius () {
     var circleRadiusValueInteger = parseInt(circle2.radius);
-    console.log(circleRadiusValueInteger)
     if (String(circleRadiusValueInteger).length === 1) {
         circleRadius.textContent = `0${circleRadiusValueInteger}`
     }
