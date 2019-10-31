@@ -1,6 +1,7 @@
 // JS
 var scoreDisplay = document.querySelectorAll(".score");
 let totalScore = 0;
+var circleRadius = document.querySelector("#circleRadius");
 
 // LIVES //
 
@@ -654,8 +655,6 @@ function checkIfWin() {
     }
     return
 }
-
-var circleRadius = document.querySelector("#circleRadius");
 
 function displayValueCircleRadius() {
     var circleRadiusValueInteger = parseInt(circle2.radius);

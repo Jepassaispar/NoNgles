@@ -1,7 +1,7 @@
 // JS
 var scoreDisplay = document.querySelectorAll(".score");
 let totalScore = 0;
-
+var circleRadius = document.querySelector("#circleRadius");
 // LIVES //
 
 var hearts = document.querySelectorAll(".heart");
@@ -255,8 +255,8 @@ class Circle {
         this.x = x
         this.y = y
         this.velocity = {
-            x: randomIntFromRangeFarFromZero(-5, -2, 2, 5),
-            y: randomIntFromRangeFarFromZero(-5, -2, 2, 5),
+            x: randomIntFromRangeFarFromZero(-10, -5, 5, 10),
+            y: randomIntFromRangeFarFromZero(-10, -5, 5, 10),
         }
         this.radius = radius
         this.color = color
@@ -283,7 +283,7 @@ class Circle {
 
             for (let i = 0; i < ballArray.length; i++) {
                 // RADIUS OF BALLARRAY //
-                var radius = 70;
+                var radius = 50;
 
                 var color = randomColor(colors);
                 var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, ballArray[i].x, ballArray[i].y) - (this.radius + circle2.radius);
@@ -384,7 +384,7 @@ class Square {
 
             for (let i = 0; i < squareArray.length; i++) {
                 // SIZE OF THE SQUARES //    
-                var size = 80;
+                var size = 60;
 
                 var color = randomColor(colors);
                 var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, squareArray[i].x, squareArray[i].y) - (size / 2 + circle2.radius);
@@ -438,8 +438,8 @@ class Enemy {
         this.x = x
         this.y = y
         this.velocity = {
-            x: randomIntFromRangeFarFromZero(-10, -8, 8, 10),
-            y: randomIntFromRangeFarFromZero(-10, -8, 8, 10),
+            x: randomIntFromRangeFarFromZero(-12, -8, 8, 12),
+            y: randomIntFromRangeFarFromZero(-12, -8, 8, 12),
         }
 
         this.color = enemyColor
@@ -474,6 +474,7 @@ class Enemy {
                     audioLosePoint.play();
                     totalScore -= 500;
                     decreaseLife();
+                    decreaseLife();
                     displayTheScore(totalScore);
                     displayValueCircleRadius()
                     // HOW FAST THE MOUSE CIRCLE IS INCREASING //
@@ -495,7 +496,7 @@ class Enemy {
 
             if (50 >= circle2.radius) {
                 //NUMBER OF ENEMIES SPAWNING ALL THE TIME
-                if (enemyArray.length < 6) {
+                if (enemyArray.length < 10) {
                     enemyArray.push(new Enemy(x, y, size, color))
 
                 } else if (50 <= circle2.radius <= 200) {
@@ -544,7 +545,7 @@ function init() {
     }
 
     // NUMBER OF SQUARES SPAWNING AT THE START //
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 8; i++) {
         // SIZE OF THE STARTING SQUARES
         var size = 60;
         let x = randomIntFromRange(size, innerWidth + size + 2);
@@ -566,7 +567,7 @@ function init() {
     }
 
     // NUMBER OF ENEMIES SPAWNING AT THE START //
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 10; i++) {
         // SIZE OF THE STARTING ENNEMIES
         var size = 10;
         let x = randomIntFromRange(size, innerWidth + size + 2);
@@ -655,8 +656,6 @@ function checkIfWin() {
     }
     return
 }
-
-var circleRadius = document.querySelector("#circleRadius");
 
 function displayValueCircleRadius() {
     var circleRadiusValueInteger = parseInt(circle2.radius);
