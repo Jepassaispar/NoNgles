@@ -294,7 +294,7 @@ class Circle {
                     audioGainPoint.play();
                     totalScore += 100;
                     displayTheScore(totalScore);
-                    displayValueCircleRadius ();
+                    displayValueCircleRadius();
                     if (circle2.radius <= 300)
                         // HOW FAST THE MOUSE CIRCLE IS INCREASING
                         circle2.radius += .2;
@@ -396,7 +396,7 @@ class Square {
                     totalScore += 200;
                     audioGainPoint.play();
                     displayTheScore(totalScore);
-                    displayValueCircleRadius ();
+                    displayValueCircleRadius();
                     checkIfWin();
                     // HOW FAST THE MOUSE CIRCLE IS INCREASING //
                     circle2.radius += .4;
@@ -475,7 +475,7 @@ class Enemy {
                     totalScore -= 500;
                     decreaseLife();
                     displayTheScore(totalScore);
-                    displayValueCircleRadius ()
+                    displayValueCircleRadius()
                     // HOW FAST THE MOUSE CIRCLE IS INCREASING //
                     circle2.radius -= .5;
                 }
@@ -523,9 +523,9 @@ function init() {
     }
 
     // NUMBER OF BALLS SPAWNING AT THE START
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 6; i++) {
         // SIZE OF THE STARTING BALLS
-        var radius = 80;
+        var radius = 60;
         let x = randomIntFromRange(radius, innerWidth + radius + 5);
         let y = randomIntFromRange(radius, innerHeight - radius);
         var color = randomColor(colors);
@@ -544,9 +544,9 @@ function init() {
     }
 
     // NUMBER OF SQUARES SPAWNING AT THE START //
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 6; i++) {
         // SIZE OF THE STARTING SQUARES
-        var size = 100;
+        var size = 60;
         let x = randomIntFromRange(size, innerWidth + size + 2);
         let y = randomIntFromRange(size, innerHeight - size);
         var color = randomColor(colors);
@@ -566,7 +566,7 @@ function init() {
     }
 
     // NUMBER OF ENEMIES SPAWNING AT THE START //
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 8; i++) {
         // SIZE OF THE STARTING ENNEMIES
         var size = 10;
         let x = randomIntFromRange(size, innerWidth + size + 2);
@@ -647,7 +647,7 @@ var pauseButton = document.querySelector(".pauseButton")
 
 // SCORE //
 function checkIfWin() {
-    if (circle2.radius >= 50) {
+    if (circle2.radius >= 60) {
         togglePopupWin()
         audioWinLvl.play();
         circle2.style.display = "none";
@@ -658,13 +658,12 @@ function checkIfWin() {
 
 var circleRadius = document.querySelector("#circleRadius");
 
-function displayValueCircleRadius () {
+function displayValueCircleRadius() {
     var circleRadiusValueInteger = parseInt(circle2.radius);
     console.log(circleRadiusValueInteger)
     if (String(circleRadiusValueInteger).length === 1) {
         circleRadius.textContent = `0${circleRadiusValueInteger}`
-    }
-    else if (String(circleRadiusValueInteger).length === 2) {
+    } else if (String(circleRadiusValueInteger).length === 2) {
         circleRadius.textContent = `${circleRadiusValueInteger}`
     }
 }

@@ -293,7 +293,7 @@ class Circle {
                     audioGainPoint.play();
                     totalScore += 100;
                     displayTheScore(totalScore);
-                    displayValueCircleRadius ();
+                    displayValueCircleRadius();
                     if (circle2.radius <= 300)
                         // HOW FAST THE MOUSE CIRCLE IS INCREASING
                         circle2.radius += .2;
@@ -395,7 +395,7 @@ class Square {
                     totalScore += 200;
                     audioGainPoint.play();
                     displayTheScore(totalScore);
-                    displayValueCircleRadius ();
+                    displayValueCircleRadius();
                     checkIfWin();
                     // HOW FAST THE MOUSE CIRCLE IS INCREASING //
                     circle2.radius += .4;
@@ -474,7 +474,7 @@ class Enemy {
                     totalScore -= 500;
                     decreaseLife();
                     displayTheScore(totalScore);
-                    displayValueCircleRadius ()
+                    displayValueCircleRadius()
                     // HOW FAST THE MOUSE CIRCLE IS INCREASING //
                     circle2.radius -= .5;
                 }
@@ -655,14 +655,13 @@ function checkIfWin() {
     return
 }
 
-// var circleRadius = document.querySelector("#circleRadius");
+var circleRadius = document.querySelector("#circleRadius");
 
-function displayValueCircleRadius () {
+function displayValueCircleRadius() {
     var circleRadiusValueInteger = parseInt(circle2.radius);
     if (String(circleRadiusValueInteger).length === 1) {
         circleRadius.textContent = `0${circleRadiusValueInteger}`
-    }
-    else if (String(circleRadiusValueInteger).length === 2) {
+    } else if (String(circleRadiusValueInteger).length === 2) {
         circleRadius.textContent = `${circleRadiusValueInteger}`
     }
 }
