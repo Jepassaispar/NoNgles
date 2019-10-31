@@ -52,6 +52,16 @@ var closePopUpWin = document.querySelector(".closePopUpWin");
 
 var closePopUpLose = document.querySelector(".closePopUpLose");
 
+var retryButton = document.querySelectorAll(".retryLvl");
+
+var reloadPage = function () {
+    document.location.reload(true);
+}
+
+retryButton.forEach(function(button) {
+    button.onclick = reloadPage
+})
+
 // closePopUpWin.onclick = togglePopupWin
 
 // closePopUpLose.onclick = togglePopupLose
@@ -159,6 +169,7 @@ function decreaseLife() {
         emptyHeart(heart3)
         emptyHeart(heart2)
         emptyHeart(heart1)
+        audioLoseLvl.play()
         togglePopupLose()
     }
 }
@@ -168,6 +179,8 @@ decreaseLife()
 // AUDIO
 var audioLosePoint = document.querySelector("#losePoint")
 var audioGainPoint = document.querySelector("#gainPoint")
+var audioWinLvl = document.querySelector("#lvl-success")
+var audioLoseLvl = document.querySelector("#lvl-fail")
 // var audio = document.getElementById("lvlMusic");
 // audio.volume = 0.4;
 
@@ -646,6 +659,7 @@ var pauseButton = document.querySelector(".pauseButton")
 function checkIfWin() {
     if (circle2.radius >= 45) {
         togglePopupWin()
+        audioWinLvl.play();
         circle2.style.display = "none";
         return;
     }

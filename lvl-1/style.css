@@ -1,3 +1,7 @@
+* {
+  outline: none;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -147,13 +151,26 @@ a {
   font-weight: bold;
 }
 
-.retryLvl,
 .goToMenu,
 .nextLvl {
   font-weight: 600;
   border-radius: 30px;
   width: 10em;
   padding: 6%;
+  margin: 2%;
+  white-space: nowrap;
+  background-color: yellow;
+  box-shadow: gray 5px 5px;
+  user-select: none;
+  z-index: 1;
+}
+
+.retryLvl {
+  font-weight: 600;
+  border-radius: 30px;
+  width: 12em;
+  font-size: 1em;
+  padding: 5.5%;
   margin: 2%;
   white-space: nowrap;
   background-color: yellow;
