@@ -1,51 +1,6 @@
 // JS
-
-// SCORE //
-var scoreDisplay = document.querySelector("#score");
+var scoreDisplay = document.querySelectorAll(".score");
 let totalScore = 0;
-
-function displayTheScore(score) {
-    // console.log(String(score).length)
-    // console.log(score);
-    if (score === 0) {
-        scoreDisplay.textContent = "00000000"
-    } else if (String(score).length === 3) {
-        // console.log(score)
-        if (score >= 0)
-            scoreDisplay.textContent = `00000${score}`
-        else
-            scoreDisplay.textContent = `-00000${-score}`
-    } else if (String(score).length === 4) {
-        if (score >= 0)
-            scoreDisplay.textContent = `0000${score}`
-        else
-            scoreDisplay.textContent = `-0000${-score}`
-    } else if (String(score).length === 5) {
-        if (score >= 0)
-            scoreDisplay.textContent = `000${score}`
-        else
-            scoreDisplay.textContent = `-000${-score}`
-    } else if (String(score).length === 6) {
-        if (score >= 0)
-            scoreDisplay.textContent = `00${score}`
-        else
-            scoreDisplay.textContent = `-00${-score}`
-    } else if (String(score).length === 7) {
-        if (score >= 0)
-            scoreDisplay.textContent = `0${score}`
-        else
-            scoreDisplay.textContent = `-0${-score}`
-    } else if (String(score).length === 8) {
-        if (score >= 0)
-            scoreDisplay.textContent = `${score}`
-        else
-            scoreDisplay.textContent = `-${-score}`
-    } else {
-        return scoreDisplay = "You broke the game, congrats !"
-    }
-}
-
-displayTheScore(totalScore)
 
 // LIVES //
 
@@ -79,6 +34,27 @@ function emptyHeart(heart) {
 }
 
 var fullLife = 20;
+
+function togglePopupWin() {
+    var popup = document.getElementById("myPopupWin");
+    popup.classList.toggle("show");
+    displayTheScore(totalScore)
+}
+
+function togglePopupLose() {
+    var popup = document.getElementById("myPopupLose");
+    var scoreDisplay = document.querySelector(".score");
+    popup.classList.toggle("show");
+    displayTheScore(scoreDisplay)
+}
+
+var closePopUpWin = document.querySelector(".closePopUpWin");
+
+var closePopUpLose = document.querySelector(".closePopUpLose");
+
+// closePopUpWin.onclick = togglePopupWin
+
+// closePopUpLose.onclick = togglePopupLose
 
 function decreaseLife() {
     if (fullLife === 20) {
@@ -183,9 +159,8 @@ function decreaseLife() {
         emptyHeart(heart3)
         emptyHeart(heart2)
         emptyHeart(heart1)
-        alert("GAME OVER !")
+        togglePopupLose()
     }
-
 }
 
 decreaseLife()
@@ -193,8 +168,8 @@ decreaseLife()
 // AUDIO
 var audioLosePoint = document.querySelector("#losePoint")
 var audioGainPoint = document.querySelector("#gainPoint")
-var audio = document.getElementById("lvlMusic");
-audio.volume = 0.4;
+// var audio = document.getElementById("lvlMusic");
+// audio.volume = 0.4;
 
 var mouse = {
     x: innerWidth / 2,
@@ -370,7 +345,6 @@ class Square {
 
 
 
-
         // this.incrementAngle = function () {
         //     angle++;
         //     if (angle > 360)
@@ -418,9 +392,10 @@ class Square {
                     totalScore += 200;
                     audioGainPoint.play();
                     displayTheScore(totalScore);
-                    if (circle2.radius <= 300)
-                        // HOW FAST THE MOUSE CIRCLE IS INCREASING //
-                        circle2.radius += .4;
+                    checkIfWin();
+                    // HOW FAST THE MOUSE CIRCLE IS INCREASING //
+                    circle2.radius += .4;
+                    console.log(circle2.radius)
                 }
                 // DELIMITATE THE INIT SPAWN IN THE SCREEN //
                 if (this.x + this.size <= 0 || this.x - this.size >= innerWidth || this.y + this.size <= 0 || this.y - this.size >= innerHeight) {
@@ -495,11 +470,9 @@ class Enemy {
                     audioLosePoint.play();
                     totalScore -= 500;
                     decreaseLife();
-                    // console.log(totalScore)
                     displayTheScore(totalScore);
-                    if (circle2.radius <= 100)
-                        // HOW FAST THE MOUSE CIRCLE IS INCREASING //
-                        circle2.radius -= .5;
+                    // HOW FAST THE MOUSE CIRCLE IS INCREASING //
+                    circle2.radius -= .5;
                 }
                 // DELIMITATE THE INIT SPAWN IN THE SCREEN //
                 if (this.x + this.size <= 0 || this.x - this.size >= innerWidth || this.y + this.size <= 0 || this.y - this.size >= innerHeight) {
@@ -531,12 +504,6 @@ class Enemy {
 
     }
 };
-
-function win () {
-if (circle2.radius > 200) {
-    alert("YOU WON !")
-}
-}
 
 
 // Implementation
@@ -616,6 +583,7 @@ function init() {
 
 }
 
+
 // Animation Loop
 function animate() {
     c.clearRect(0, 0, canvas.width, canvas.height)
@@ -625,6 +593,8 @@ function animate() {
     circle2.drawCircleFill();
     circle2.x = mouse.x;
     circle2.y = mouse.y;
+
+
 
     ballArray.forEach(ball => {
         ball.update(ballArray);
@@ -651,3 +621,97 @@ function animate() {
 
 init()
 animate()
+
+// PAUSE BUTTON //
+
+var pauseButton = document.querySelector(".pauseButton")
+
+// function pauseCanvas () {
+//     for (var i = 0; i<ballArray.length; i++) {
+//         console.log(ballArray[i].velocity.x)
+//         return ballArray[i].velocity.x == 0;
+//         // ballArray[i].velocity.y === 0;
+//         // squareArray[i].velocity.x === 0;
+//         // squareArray[i].velocity.y === 0;
+//         // enemyArray[i].velocity.x === 0;
+//         // enemyArray[i].velocity.y === 0;
+//     }
+// }
+
+// pauseButton.onclick = pauseCanvas;
+
+// SCORE //
+function checkIfWin() {
+    if (circle2.radius >= 45) {
+        togglePopupWin()
+        circle2.style.display = "none";
+        return;
+    }
+    return
+}
+
+
+
+function displayTheScore(score) {
+    if (score === 0) {
+        scoreDisplay.textContent = "00000000"
+    } else if (String(score).length === 3) {
+        if (score >= 0)
+            scoreDisplay.forEach(function (display) {
+                display.textContent = `00000${score}`
+            })
+        else
+            scoreDisplay.forEach(function (display) {
+                display.textContent = `-00000${-score}`
+            })
+    } else if (String(score).length === 4) {
+        if (score >= 0)
+            scoreDisplay.forEach(function (display) {
+                display.textContent = `0000${score}`
+            })
+        else
+            scoreDisplay.forEach(function (display) {
+                display.textContent = `-0000${-score}`
+            })
+    } else if (String(score).length === 5) {
+        if (score >= 0)
+            scoreDisplay.forEach(function (display) {
+                display.textContent = `000${score}`
+            })
+        else
+            scoreDisplay.forEach(function (display) {
+                display.textContent = `-000${-score}`
+            })
+    } else if (String(score).length === 6) {
+        if (score >= 0)
+            scoreDisplay.forEach(function (display) {
+                display.textContent = `00${score}`
+            })
+        else
+            scoreDisplay.forEach(function (display) {
+                display.textContent = `-00${-score}`
+            })
+    } else if (String(score).length === 7) {
+        if (score >= 0)
+            scoreDisplay.forEach(function (display) {
+                display.textContent = `0${score}`
+            })
+        else
+            scoreDisplay.forEach(function (display) {
+                display.textContent = `-0${-score}`
+            })
+    } else if (String(score).length === 8) {
+        if (score >= 0)
+            scoreDisplay.forEach(function (display) {
+                display.textContent = `${score}`
+            })
+        else
+            scoreDisplay.forEach(function (display) {
+                display.textContent = `-${-score}`
+            })
+    } else {
+        return scoreDisplay = "You broke the game, congrats !"
+    }
+}
+
+displayTheScore(totalScore)

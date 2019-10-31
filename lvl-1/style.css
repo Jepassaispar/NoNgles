@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   cursor: none;
+  z-index: 0;
 }
 
 header {
@@ -38,6 +39,13 @@ h5 {
   font-family: Staatliches;
 }
 
+h4 {
+  font-size: 1.4em;
+}
+
+.loser {
+  height: 60px;
+}
 
 canvas {
   height: 88.8vh;
@@ -52,6 +60,117 @@ canvas {
   margin-top: 2px;
   height: 30px;
   width: auto
+}
+
+.pauseButton {
+  background-color: lightblue;
+  border: none;
+}
+
+.pauseButton:hover {
+  cursor:pointer;
+}
+
+.pauseButton img {
+  height: 30px;
+}
+
+
+
+.heart-full {
+  height: 10px;
+  width: auto;
+}
+
+/* POP-UP */
+
+.popUpParentDiv {
+  z-index: 1;  
+}
+
+a {
+  text-decoration: none;
+  color: black
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-style: normal;
+  font-family: sans-serif;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  width: 20rem;
+  font-size: 1.5rem;
+  background-color: lightblue;
+  border: none;
+  border-radius: 25px;
+  padding: 6%;
+  padding-top: 0;
+  white-space: nowrap;
+  box-shadow: gray 5px 5px;
+  user-select: none;
+  visibility: hidden;
+  z-index: 1;
+  bottom: 10vh;
+  left: 30%;
+  top: 10vh;
+  right: 30%;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+.closePopUpWin, .closePopUpLose {
+    background-color: lightblue;
+    color: black;
+    border: none;
+    font-size: 1.8em;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.retryLvl, .goToMenu, .nextLvl {
+  font-weight: 600;
+  border-radius: 30px;
+  width: 10em;
+  padding: 6%;
+  margin: 2%;
+  white-space: nowrap;
+  background-color: yellow;
+  box-shadow: gray 5px 5px;
+  user-select: none;
+  z-index: 1;
+}
+
+.retryLvl:hover, .goToMenu:hover, .nextLvl:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: .3s linear;
+  user-select: none;
+}
+
+/* .endScore {
+  
+} */
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
 }
 
 @media only screen and (max-width: 730px) {
@@ -74,9 +193,28 @@ canvas {
     height: 91.5vh;
     width: 95vw;
   }
-}
-
-.heart-full {
-  height: 10px;
-  width: auto;
+  .pauseButton img {
+    height: 20px;
+  }
+  .popup .popuptext {
+    bottom: 15vh;
+    left: 20vw;
+  }
+  .popup .popuptext {
+    width: 20rem;
+    font-size: 1.2rem;
+    background-color: lightblue;
+    border: none;
+    border-radius: 25px;
+    padding: 6%;
+    padding-top: 0;
+    white-space: nowrap;
+    box-shadow: gray 5px 5px;
+    user-select: none;
+    z-index: 1;
+    top: 10vh;
+    bottom: 10vh;
+    left: 15%;
+    right: 20%;
+  }
 }
