@@ -6,6 +6,10 @@ var soundButton = document.getElementById("soundButton")
 
 var soundIcon = document.getElementById("soundIcon")
 
+var mainPage = document.getElementById("mainPage");
+
+var closePopUp = document.querySelector(".closePopUp")
+
 function changeToSoundIcon(icon) {
     icon.src = './img/icon-sound.png'
 }
@@ -44,8 +48,13 @@ menuButtons.forEach(function (button) {
 
 /* SELECT LVL */
 
-// var selectLvl = document.querySelector("buttonSelectLvl")
+var selectLvl = document.querySelector("#buttonSelectLvl")
 
-// selectLvl.onclick=function () {
+function togglePopup() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
 
-// }
+selectLvl.onclick = togglePopup;
+
+closePopUp.onclick = togglePopup;

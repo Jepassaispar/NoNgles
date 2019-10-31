@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     outline: none;
+    z-index: 0;
 }
 
 body {
@@ -10,7 +11,7 @@ body {
     background-color: #a2fdff;
     user-select: none;
     height: 100%;
-    overflow: hidden
+    overflow: hidden;
 }
 
 header {
@@ -59,7 +60,6 @@ div {
     align-items: center;
     margin: .5em;
     user-select: none;
-
 }
 
 #inputName {
@@ -76,8 +76,14 @@ div {
     width: 90vw;
 }
 
+#selectLvlPopUp {
+    z-index: 1;
+    position: relative
+}
+
 #mainPage {
     height: 100vh;
+    z-index: 0;
 }
 
 .menuButton {
@@ -96,10 +102,6 @@ div {
     box-shadow: gray 5px 5px;
     user-select: none;
 
-}
-
-#buttonSelectLvl {
-    width: 9rem;
 }
 
 .menuButton:hover {
@@ -216,6 +218,7 @@ button.premium:hover {
     justify-content: space-evenly;
     align-items: center;
     margin-top: 20vh;
+    z-index: 0;
 }
 
 #howToPlay h5 {
@@ -228,6 +231,7 @@ button.premium:hover {
     font-weight: 400;
     margin: 0;
     text-align: center;
+    z-index: 0;
 }
 
 p {
@@ -275,6 +279,83 @@ article {
 #buttonMenu {
     margin-top: 4vh;
 }
+
+/* POP-UP */
+  
+.popUpParentDiv {
+    z-index: 1;    
+}
+
+.lvl {
+    margin: 1em 0;
+    background-color: #a2fdff;
+}
+
+#lvlMedium {
+    background-color: orange;
+}
+
+#lvlHard {
+    background-color: red;
+}
+
+  /* The actual popup (appears on top) */
+  .popup .popuptext {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-style: normal;
+    font-family: sans-serif;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    width: 20rem;
+    font-size: 1.5rem;
+    background-color: yellow;
+    border: none;
+    border-radius: 25px;
+    padding: 6%;
+    white-space: nowrap;
+    box-shadow: gray 5px 5px;
+    user-select: none;
+    visibility: hidden;
+    z-index: 1;
+    bottom: 5%;
+  }
+  
+  /* Toggle this class when clicking on the popup container (hide and show the popup) */
+  .popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+  }
+  
+  .closePopUp {
+      background-color: yellow;
+      color: black;
+      border: none;
+      font-size: 1.8em;
+      font-family: sans-serif;
+      font-weight: bold;
+  }
+
+  .closePopUp:hover {
+    cursor: pointer;
+  }
+
+
+  /* Add animation (fade in the popup) */
+  @-webkit-keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+  }
+  
 
 /* MEDIA QUERIES */
 
@@ -328,6 +409,10 @@ article {
         font-size: 1.5em;
         text-align: center;
         padding: 0 10vw;
+    }
+
+    .popup .popuptext {
+        padding: 12%;
     }
 }
 
