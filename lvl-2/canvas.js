@@ -43,7 +43,6 @@ function togglePopupWin() {
 
 function togglePopupLose() {
     var popup = document.getElementById("myPopupLose");
-    var scoreDisplay = document.querySelector(".score");
     popup.classList.toggle("show");
     displayTheScore(scoreDisplay)
 }
@@ -51,16 +50,6 @@ function togglePopupLose() {
 var closePopUpWin = document.querySelector(".closePopUpWin");
 
 var closePopUpLose = document.querySelector(".closePopUpLose");
-
-var retryButton = document.querySelectorAll(".retryLvl");
-
-var reloadPage = function () {
-    document.location.reload(true);
-}
-
-retryButton.forEach(function(button) {
-    button.onclick = reloadPage
-})
 
 // closePopUpWin.onclick = togglePopupWin
 

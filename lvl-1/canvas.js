@@ -52,16 +52,6 @@ var closePopUpWin = document.querySelector(".closePopUpWin");
 
 var closePopUpLose = document.querySelector(".closePopUpLose");
 
-var retryButton = document.querySelectorAll(".retryLvl");
-
-var reloadPage = function () {
-    document.location.reload(true);
-}
-
-retryButton.forEach(function(button) {
-    button.onclick = reloadPage
-})
-
 // closePopUpWin.onclick = togglePopupWin
 
 // closePopUpLose.onclick = togglePopupLose
