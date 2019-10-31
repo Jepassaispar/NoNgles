@@ -17,18 +17,45 @@
         <img alt="HEART" id="heart-4" class="heart">
         <img alt="HEART" id="heart-5" class="heart">
       </span></h6>
-    <h6>SCORE : <span id="score">0000000000</span></h6>
+    <div class="displayCircleRadius">
+      <img class="fullCircle" src="/lvl-1/img/Full-circle.png" alt="YOU">
+      <h6>=<span id="circleRadius"></span>/45</h6>
+    </div>
+
+    <div>
+      <h6>SCORE : <span class="score">0000000000</span></h6>
+    </div>
   </header>
+  <div class="popup">
+    <span class="popuptext" id="myPopupWin">
+      <!-- <button class="closePopUpWin">x</button> -->
+      <h4>YOU WON !</h4>
+      <h4 class="endScore">Your score is <span class="score"></span></h4>
+      <button class="retryLvl" href="/lvl-1/index.html">Retry</button>
+      <a class="nextLvl" href="/lvl-1/index.html">Next Lvl</a>
+      <a class="goToMenu" href="/home/index.html">Menu</a>
+    </span>
+  </div>
+  <div class="popup">
+    <span class="popuptext" id="myPopupLose">
+      <!-- <button class="closePopUpLose">x</button> -->
+      <h4>LOSER ! <img class="loser" src="/lvl-1/img/loser.jpg" alt=""></h4>
+      <h4 class="endScore">Your score is <span class="score"></span></h4>
+      <button class="retryLvl" href="/lvl-1/index.html">Retry</button>
+      <a class="goToMenu" href="/home/index.html">Menu</a>
+    </span>
+  </div>
   <canvas></canvas>
   <footer>
-    <h6>made with <img src="./img/1-Full-Heart.png" class="heart-full" alt=""> by PH</h6>
+    <h5>made with <img src="./img/1-Full-Heart.png" class="heart-full" alt=""> by PH</h5>
   </footer>
+  <!-- <audio autoplay id="lvlMusic" value="0.10" src="/lvl-1/sound/lvl-music-hardcore.mp3"> -->
   <audio id="gainPoint" src="./sound/point-gain.wav" hidden="true" autostart="false">
-  <audio id="losePoint" src="./sound/point-lose.wav" hidden="true" autostart="false">
-  <audio id="lvl-success" src="./sound/lvl-success.wav" hidden="true" autostart="false">
-  <audio id="lvl-fail" src="./sound/lvl-fail.wav" hidden="true" autostart="false">
-  <script src="./canvas.js">
-  </script>
+    <audio id="losePoint" src="./sound/point-lose.wav" hidden="true" autostart="false">
+      <audio id="lvl-success" src="./sound/lvl-success.wav" hidden="true" autostart="false">
+        <audio id="lvl-fail" src="./sound/lvl-fail.wav" hidden="true" autostart="false">
+          <script src="./canvas.js">
+          </script>
 </body>
 
 </html>
