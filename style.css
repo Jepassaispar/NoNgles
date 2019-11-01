@@ -111,21 +111,16 @@ div {
     user-select: none;
 }
 
+#lvlHard:hover {
+    cursor: pointer;
+    transform: none;
+    transition: none;
+}
+
 a {
     text-decoration: none;
     color: black;
 }
-
-/* button.premium {
-    background-color: red;
-    width: 11rem;
-}
-
-button.premium:hover {
-    background-color: red;
-    transform: scale(1.3);
-    transition: .4s linear;
-} */
 
 /* Header */
 /* /////////////////////////////////////////// */
@@ -143,6 +138,10 @@ button.premium:hover {
     animation: .5s linear 0s infinite increaseBox;
 }
 
+.is-moving-slowly {
+    animation: .5s linear 0s infinite increaseBoxSlowly
+}
+
 @keyframes increaseBox {
     0% {
         transform: scale(1, 1);
@@ -150,6 +149,21 @@ button.premium:hover {
 
     50% {
         transform: scale(1.5, 1.5);
+    }
+
+    100% {
+        transform: translate(1, 1);
+    }
+
+}
+
+@keyframes increaseBoxSlowly {
+    0% {
+        transform: scale(1, 1);
+    }
+
+    50% {
+        transform: scale(1.08, 1.08);
     }
 
     100% {
@@ -186,7 +200,6 @@ button.premium:hover {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    /* justify-content: flex-end; */
     user-select: none;
 }
 
@@ -281,9 +294,9 @@ article {
 }
 
 /* POP-UP */
-  
+
 .popUpParentDiv {
-    z-index: 1;    
+    z-index: 1;
 }
 
 .lvl {
@@ -297,10 +310,10 @@ article {
 
 #lvlHard {
     background-color: red;
+    font-family: "vampire_warsregular";
 }
 
-  /* The actual popup (appears on top) */
-  .popup .popuptext {
+.popup .popuptext {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -322,40 +335,61 @@ article {
     visibility: hidden;
     z-index: 1;
     bottom: 5%;
-  }
-  
-  /* Toggle this class when clicking on the popup container (hide and show the popup) */
-  .popup .show {
+}
+
+.popup .show {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s
-  }
-  
-  .closePopUp {
-      background-color: yellow;
-      color: black;
-      border: none;
-      font-size: 1.8em;
-      font-family: sans-serif;
-      font-weight: bold;
-  }
+}
 
-  .closePopUp:hover {
+.closePopUp {
+    background-color: yellow;
+    color: black;
+    border: none;
+    font-size: 1.8em;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.closePopUp:hover {
     cursor: pointer;
-  }
+}
 
 
-  /* Add animation (fade in the popup) */
-  @-webkit-keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-  }
-  
-  @keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity:1 ;}
-  }
-  
+/* ANIMATION POP-UP */
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/*ANIMATION*/
+
+@font-face {
+    font-family: 'vampire_warsregular';
+    src: url('./font/webfontkit-20191030-060030/vampire_wars-webfont.woff2') format('woff2'),
+        url('./font/webfontkit-20191030-060030/vampire_wars-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 
 /* MEDIA QUERIES */
 
@@ -414,15 +448,4 @@ article {
     .popup .popuptext {
         padding: 12%;
     }
-}
-
-/*ANIMATION*/
-
-@font-face {
-    font-family: 'vampire_warsregular';
-    src: url('./font/webfontkit-20191030-060030/vampire_wars-webfont.woff2') format('woff2'),
-        url('./font/webfontkit-20191030-060030/vampire_wars-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
 }

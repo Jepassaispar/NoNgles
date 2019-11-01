@@ -1,11 +1,10 @@
-// JS
+// IMPORTANT VARIABLES
 var scoreDisplay = document.querySelectorAll(".score");
-let totalScore = 0;
 var circleRadius = document.querySelector("#circleRadius");
+let totalScore = 0;
+var fullLife = 20;
 
-
-// LIVES //
-
+// LIVES & POPUPS//
 var hearts = document.querySelectorAll(".heart");
 var heart1 = document.getElementById("heart-1");
 var heart2 = document.getElementById("heart-2");
@@ -35,8 +34,6 @@ function emptyHeart(heart) {
     heart.src = "./img/5-empty-heart.png"
 }
 
-var fullLife = 20;
-
 function togglePopupWin() {
     var popup = document.getElementById("myPopupWin");
     popup.classList.toggle("show");
@@ -45,7 +42,6 @@ function togglePopupWin() {
 
 function togglePopupLose() {
     var popup = document.getElementById("myPopupLose");
-    var scoreDisplay = document.querySelector(".score");
     popup.classList.toggle("show");
     displayTheScore(scoreDisplay)
 }
@@ -53,10 +49,6 @@ function togglePopupLose() {
 var closePopUpWin = document.querySelector(".closePopUpWin");
 
 var closePopUpLose = document.querySelector(".closePopUpLose");
-
-// closePopUpWin.onclick = togglePopupWin
-
-// closePopUpLose.onclick = togglePopupLose
 
 function decreaseLife() {
     if (fullLife === 20) {
@@ -173,52 +165,28 @@ var audioLosePoint = document.querySelector("#losePoint")
 var audioGainPoint = document.querySelector("#gainPoint")
 var audioWinLvl = document.querySelector("#lvl-success")
 var audioLoseLvl = document.querySelector("#lvl-fail")
-// var audio = document.getElementById("lvlMusic");
-// audio.volume = 0.4;
 
+// CANVAS
 var mouse = {
     x: innerWidth / 2,
     y: innerHeight / 2,
 }
 
-
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
+const colors = ['#0DFF84', '#E8E60C', '#FF7B00', '#E80CA6', '#001EFF']
+const enemyColor = ['#000000'];
 
 canvas.width = innerWidth
 canvas.height = innerHeight
 
-const colors = ['#0DFF84', '#E8E60C', '#FF7B00', '#E80CA6', '#001EFF']
-
-const enemyColor = ['#000000'];
-
-
-
-// Event Listeners
+// EVENT LISTENER
 addEventListener('mousemove', event => {
     mouse.x = event.clientX;
     mouse.y = event.clientY;
-
-    //     mouse.x = event.clientX - getDistanceWithMaths(event.clientX)
-    // mouse.y = event.clientY - getDistanceWithMaths(event.clientY)
-    // console.log(`mouse x : ${mouse.x - event.clientX}`)
-    // console.log(`mouse y : ${mouse.y-event.clientY}`)
 })
 
-// var increaseNumberOverTime = 0;
-// var speed = 0.0001;
 
-// function getDistanceWithMaths(mousecoor) {
-//     speed -= .0001;
-//     return mousecoor * speed;
-// }
-
-// addEventListener('resize', () => {
-//     canvas.width = innerWidth
-//     canvas.height = innerHeight
-
-//     init()
-// })
 
 function getDistance(x1, y1, x2, y2) {
     let xDistance = x2 - x1;
@@ -227,9 +195,7 @@ function getDistance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
 }
 
-
-
-// Utility functions
+// UTILITY FUNCTIONS
 function randomIntFromRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -249,14 +215,15 @@ function randomColor(colors) {
     return colors[Math.floor(Math.random() * colors.length)];
 }
 
-
-// OBJECT CIRCLE //
+/////////////////////////////////////////////////////////////////
+// OBJECT CIRCLE & BALL ARRAY//
 var ballArray = [];
 class Circle {
     constructor(x, y, radius, color) {
         this.x = x
         this.y = y
         this.velocity = {
+            // SPEED OF THE OBJECTS OF BALLARRAY
             x: randomIntFromRangeFarFromZero(-3, -1, 1, 3),
             y: randomIntFromRangeFarFromZero(-3, -1, 1, 3),
         }
@@ -284,7 +251,8 @@ class Circle {
         this.update = (ballArray) => {
 
             for (let i = 0; i < ballArray.length; i++) {
-                // RADIUS OF BALLARRAY //
+
+                // RADIUS OF OBJECTS OF BALLARRAY //
                 var radius = 80;
 
                 var color = randomColor(colors);
@@ -292,16 +260,15 @@ class Circle {
 
                 if (distanceBetweenTwoObjects < 0) {
                     if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(this.radius * 2)))
+                        // WHAT HAPPENS WHEN BALLARAY OBJECTS COLLIDE WITH MOUSE OBJECT
                         ballArray.splice(i, 1);
                     audioGainPoint.play();
                     totalScore += 100;
                     displayTheScore(totalScore);
-                    displayValueCircleRadius ();
-                    if (circle2.radius <= 300)
-                        // HOW FAST THE MOUSE CIRCLE IS INCREASING
-                        circle2.radius += .2;
+                    displayValueCircleRadius();
+                    circle2.radius += .2;
                 }
-                // DELIMITATE THE INIT SPAWN IN THE SCREEN //
+                // DELIMITATE THE SPAWN OF BALLARRAY OBJECTS INSIDE THE SCREEN //
                 if (this.x + this.radius <= 0 || this.x - this.radius >= innerWidth || this.y + this.radius <= 0 || this.y - this.radius >= innerHeight) {
                     ballArray.splice(ballArray.indexOf(this), 1);
                     return;
@@ -315,19 +282,11 @@ class Circle {
             let y = randomIntFromRange(radius, innerHeight - radius);
 
 
-            if (50 >= circle2.radius) {
-                //NUMBER OF BALLS SPAWNING ALL THE TIME
-                if (ballArray.length < 3) {
-                    ballArray.push(new Circle(x, y, radius, color))
-
-                } else if (50 <= circle2.radius <= 200) {
-                    if (ballArray.length < 2) {
-                        ballArray.push(new Circle(x, y, radius, color))
-                    }
-                }
+            // NUMBER OF BALLS SPAWNING AT ANYTIME
+            if (ballArray.length < 3) {
+                ballArray.push(new Circle(x, y, radius, color))
             }
         };
-
     }
 };
 
@@ -336,11 +295,13 @@ this.convertToRadians = function (degree) {
     return degree * (Math.PI / 180)
 }
 
-// OBJECT SQUARE //
+/////////////////////////////////////////////////////////////////
+// OBJECT SQUARE & SQUARE ARRAY //
 var squareArray = [];
 class Square {
     constructor(x, y, size, color) {
         this.velocity = {
+            // SPEED OF THE OBJECTS OF SQUAREARRAY
             x: randomIntFromRangeFarFromZero(-3, -1, 1, 3),
             y: randomIntFromRangeFarFromZero(-3, -1, 1, 3),
         }
@@ -349,22 +310,8 @@ class Square {
         this.y = y - this.size / 2
         this.color = color
 
-
-
-        // this.incrementAngle = function () {
-        //     angle++;
-        //     if (angle > 360)
-        //         angle = 0;
-        // }
-
-
         this.drawSquareStroke = function () {
-            // this.incrementAngle();
-            // function fillRectCentered(c, x, y, size) {
-            // c.rect(x-size/2, y-size/2, size)
-            // }
             c.beginPath()
-            // fillRectCentered(c, this.x, this.y, this.size)
             c.rect(this.x - size / 2, this.y - size / 2, this.size, this.size)
             c.strokeStyle = this.color
             c.lineWidth = 2;
@@ -372,20 +319,11 @@ class Square {
             c.closePath()
         }
 
-        // this.drawSquareFill = function () {
-        //     c.beginPath()
-        //     c.rect(this.x, this.y, this.size, this.size)
-        //     c.lineWidth = 2;
-        //     c.fillStyle = this.color
-        //     c.fill()
-        //     c.closePath()
-        // c.rotate()
-        // }
-
         this.update = (squareArray) => {
 
             for (let i = 0; i < squareArray.length; i++) {
-                // SIZE OF THE SQUARES //    
+
+                // SIZE OF OBJECTS OF SQUAREARRAY //    
                 var size = 100;
 
                 var color = randomColor(colors);
@@ -393,14 +331,13 @@ class Square {
 
                 if (distanceBetweenTwoObjects < 0) {
                     if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(circle2.radius + size / 2)))
-                        squareArray.splice(i, 1);
-                    // SCORE FOR SQUARES //
+                    // WHAT HAPPENS WHEN BALLARAY OBJECTS COLLIDE WITH MOUSE OBJECT                    
+                    squareArray.splice(i, 1);
                     totalScore += 200;
                     audioGainPoint.play();
                     displayTheScore(totalScore);
-                    displayValueCircleRadius ();
+                    displayValueCircleRadius();
                     checkIfWin();
-                    // HOW FAST THE MOUSE CIRCLE IS INCREASING //
                     circle2.radius += .4;
                 }
                 // DELIMITATE THE INIT SPAWN IN THE SCREEN //
@@ -416,30 +353,23 @@ class Square {
             let y = randomIntFromRange(size, innerHeight - size);
 
 
-            if (50 >= circle2.radius) {
-                //NUMBER OF SQUARE SPAWNING ALL THE TIME
-                if (squareArray.length < 3) {
-                    squareArray.push(new Square(x, y, size, color))
-
-                } else if (50 <= circle2.radius <= 300) {
-                    if (squareArray.length < 2) {
-                        squareArray.push(new Square(x, y, size, color))
-                    }
-                }
+            //NUMBER OF SQUARE SPAWNING AT ANYIME
+            if (squareArray.length < 3) {
+                squareArray.push(new Square(x, y, size, color))
             }
         };
-
-
     }
 };
 
-// OBJECTS ENEMIES //
+/////////////////////////////////////////////////////////////////
+// OBJECTS ENEMY & ENEMIES ARRAY//
 var enemyArray = [];
 class Enemy {
     constructor(x, y, size, color) {
         this.x = x
         this.y = y
         this.velocity = {
+            // SPEED OF THE OBJECTS OF ENEMYARRAY
             x: randomIntFromRangeFarFromZero(-10, -8, 8, 10),
             y: randomIntFromRangeFarFromZero(-10, -8, 8, 10),
         }
@@ -464,21 +394,21 @@ class Enemy {
         this.update = (enemyArray) => {
 
             for (let i = 0; i < enemyArray.length; i++) {
-                // SIZE OF THE ENEMIES //    
+
+                // SIZE OBJECTS IN ENEMYARRAY //    
                 var size = 15;
                 var color = randomColor(colors);
                 var distanceBetweenTwoObjects = getDistance(circle2.x, circle2.y, enemyArray[i].x, enemyArray[i].y) - (size + circle2.radius);
 
                 if (distanceBetweenTwoObjects < 0) {
                     if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(circle2.radius + size)))
+                        // WHAT HAPPENS WHEN ENEMYARRAY OBJECTS COLLIDE WITH MOUSE OBJECT                          
                         enemyArray.splice(i, 1);
-                    // SCORE FOR ENEMIES //
                     audioLosePoint.play();
                     totalScore -= 500;
                     decreaseLife();
                     displayTheScore(totalScore);
-                    displayValueCircleRadius ()
-                    // HOW FAST THE MOUSE CIRCLE IS INCREASING //
+                    displayValueCircleRadius()
                     circle2.radius -= .5;
                 }
                 // DELIMITATE THE INIT SPAWN IN THE SCREEN //
@@ -495,26 +425,17 @@ class Enemy {
             let y = randomIntFromRange(size, innerHeight - size);
 
 
-            if (50 >= circle2.radius) {
-                //NUMBER OF ENEMIES SPAWNING ALL THE TIME
-                if (enemyArray.length < 4) {
-                    enemyArray.push(new Enemy(x, y, size, color))
-
-                } else if (50 <= circle2.radius <= 200) {
-                    if (enemyArray.length < 3) {
-                        enemyArray.push(new Enemy(x, y, size, color))
-                    }
-                }
+            //NUMBER OF ENEMIES SPAWNING AT ANYTIME
+            if (enemyArray.length < 5) {
+                enemyArray.push(new Enemy(x, y, size, color))
             }
         };
-
-
     }
 };
 
 
-// Implementation
-
+/////////////////////////////////////////////////////////////////
+// IIMPLEMENTATION
 let circle2;
 
 function init() {
@@ -564,7 +485,6 @@ function init() {
 
         }
         squareArray.push(new Square(x, y, size, color))
-        // console.log(squareArray)
     }
 
     // NUMBER OF ENEMIES SPAWNING AT THE START //
@@ -591,11 +511,11 @@ function init() {
 }
 
 
-// Animation Loop
+/////////////////////////////////////////////////////////////////
+// AANIMATION LOOP //
 function animate() {
     c.clearRect(0, 0, canvas.width, canvas.height)
 
-    // circle1.update();
     circle2.update(ballArray);
     circle2.drawCircleFill();
     circle2.x = mouse.x;
@@ -612,11 +532,6 @@ function animate() {
     squareArray.forEach(square => {
         square.update(squareArray);
         square.drawSquareStroke();
-        // c.save()
-        // c.translate(square.x, square.y)
-        // c.rotate(convertToRadians(angle));
-        // c.translate(-square.x, -square.y)
-        // c.restore()
     })
 
     enemyArray.forEach(enemy => {
@@ -629,24 +544,7 @@ function animate() {
 init()
 animate()
 
-// PAUSE BUTTON //
-
-var pauseButton = document.querySelector(".pauseButton")
-
-// function pauseCanvas () {
-//     for (var i = 0; i<ballArray.length; i++) {
-//         console.log(ballArray[i].velocity.x)
-//         return ballArray[i].velocity.x == 0;
-//         // ballArray[i].velocity.y === 0;
-//         // squareArray[i].velocity.x === 0;
-//         // squareArray[i].velocity.y === 0;
-//         // enemyArray[i].velocity.x === 0;
-//         // enemyArray[i].velocity.y === 0;
-//     }
-// }
-
-// pauseButton.onclick = pauseCanvas;
-
+/////////////////////////////////////////////////////////////////
 // SCORE //
 function checkIfWin() {
     if (circle2.radius >= 45) {
@@ -658,12 +556,11 @@ function checkIfWin() {
     return
 }
 
-function displayValueCircleRadius () {
+function displayValueCircleRadius() {
     var circleRadiusValueInteger = parseInt(circle2.radius);
     if (String(circleRadiusValueInteger).length === 1) {
         circleRadius.textContent = `0${circleRadiusValueInteger}`
-    }
-    else if (String(circleRadiusValueInteger).length === 2) {
+    } else if (String(circleRadiusValueInteger).length === 2) {
         circleRadius.textContent = `${circleRadiusValueInteger}`
     }
 }
