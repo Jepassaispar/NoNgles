@@ -251,7 +251,6 @@ class Circle {
         this.update = (ballArray) => {
 
             for (let i = 0; i < ballArray.length; i++) {
-
                 // RADIUS OF OBJECTS OF BALLARRAY //
                 var radius = 80;
 
@@ -402,7 +401,7 @@ class Enemy {
 
                 if (distanceBetweenTwoObjects < 0) {
                     if (distanceBetweenTwoObjects !== 0 && (distanceBetweenTwoObjects !== -(circle2.radius + size)))
-                        // WHAT HAPPENS WHEN ENEMYARRAY OBJECTS COLLIDE WITH MOUSE OBJECT                          
+                        // WHAT HAPPENS WHEN ENEMYARRAY OBJECTS COLLIDE WITH MOUSE OBJECT    
                         enemyArray.splice(i, 1);
                     audioLosePoint.play();
                     totalScore -= 500;
