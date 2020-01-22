@@ -323,8 +323,7 @@ class Enemy {
     this.size = size;
 
     this.update = enemyArray => {
-      console.log("vx", this.velocity.x);
-      console.log("vy", this.velocity.y);
+      console.log(enemyArray.length);
       for (let i = 0; i < enemyArray.length; i++) {
         // SIZE OBJECTS IN ENEMYARRAY //
         var size = 15;
@@ -348,20 +347,65 @@ class Enemy {
         }
         // DELIMITATE THE INIT SPAWN IN THE SCREEN //
         if (
-          this.x + this.size <= 0 ||
-          this.x - this.size >= innerWidth ||
-          this.y + this.size <= 0 ||
-          this.y - this.size >= innerHeight
+          // 0 <= this.x + this.size <= -10 ||
+          // innerWidth >= this.x - this.size >= innerWidth + 10 ||
+          // 0 <= this.y + this.size <= 10 ||
+          // innerHeight >= this.y - this.size >= innerHeight + 10
+          this.x + this.size <= -20 ||
+          this.x - this.size >= innerWidth + 20 ||
+          this.y + this.size <= -20 ||
+          this.y - this.size >= innerHeight + 20
         ) {
           enemyArray.splice(enemyArray.indexOf(this), 1);
           return;
         }
       }
 
+      // const initSpawn = (coor, coor2, innerSize) => {
+      //   if (0 <= coor <= innerSize) {
+      //     coor2 = randomIntFromRangeFarFromZero(
+      //       -10 - size - 2,
+      //       0 - size - 2,
+      //       innerHeight + size + 2,
+      //       innerHeight + size + 12
+      //     );
+      //   }
+      // };
+
       this.x += this.velocity.x;
       this.y += this.velocity.y;
-      let x = randomIntFromRange(size, innerWidth - size - 2);
-      let y = randomIntFromRange(size, innerHeight - size);
+
+      let x = randomIntFromRange(
+        -10 - size - 2,
+        // 0 - size - 2,
+        // innerWidth + size + 2,
+        innerWidth + size + 12
+      );
+      let y = randomIntFromRange(
+        -10 - size - 2,
+        // 0 - size - 2,
+        // innerHeight + size + 2,
+        innerHeight + size + 12
+      );
+      console.log("x & y", x, y);
+
+      // if (0 <= x <= innerWidth + size + 2) {
+      //   return (y = randomIntFromRangeFarFromZero(
+      //     -10 - size - 2,
+      //     0 - size - 2,
+      //     innerHeight + size + 2,
+      //     innerHeight + size + 12
+      //   ));
+      // }
+
+      if (0 <= y <= innerHeight) {
+        return (x = randomIntFromRangeFarFromZero(
+          -19,
+          1,
+          innerWidth + 1,
+          innerWidth + 19
+        ));
+      }
 
       //NUMBER OF ENEMIES SPAWNING AT ANYTIME
       if (enemyArray.length < 5) {
