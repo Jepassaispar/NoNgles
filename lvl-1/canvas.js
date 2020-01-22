@@ -387,7 +387,6 @@ class Enemy {
         // innerHeight + size + 2,
         innerHeight + size + 12
       );
-      console.log("x & y", x, y);
 
       // if (0 <= x <= innerWidth + size + 2) {
       //   return (y = randomIntFromRangeFarFromZero(
