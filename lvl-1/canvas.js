@@ -376,16 +376,16 @@ class Enemy {
       this.y += this.velocity.y;
 
       let x = randomIntFromRange(
-        -10 - size - 2,
+        0 - size,
         // 0 - size - 2,
         // innerWidth + size + 2,
-        innerWidth + size + 12
+        innerWidth + size
       );
       let y = randomIntFromRange(
-        -10 - size - 2,
+        0 - size,
         // 0 - size - 2,
         // innerHeight + size + 2,
-        innerHeight + size + 12
+        innerHeight + size
       );
 
       // if (0 <= x <= innerWidth + size + 2) {
