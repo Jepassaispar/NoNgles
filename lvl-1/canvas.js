@@ -398,14 +398,14 @@ class Enemy {
       //   ));
       // }
 
-      if (0 <= y <= innerHeight) {
-        return (x = randomIntFromRangeFarFromZero(
-          -19,
-          1,
-          innerWidth + 1,
-          innerWidth + 19
-        ));
-      }
+      // if (0 <= y <= innerHeight) {
+      //   return (x = randomIntFromRangeFarFromZero(
+      //     -19,
+      //     1,
+      //     innerWidth + 1,
+      //     innerWidth + 19
+      //   ));
+      // }
 
       //NUMBER OF ENEMIES SPAWNING AT ANYTIME
       if (enemyArray.length < 5) {
